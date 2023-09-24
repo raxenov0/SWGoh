@@ -6,6 +6,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
+from selenium.webdriver.chrome.service import Service
 
 class NotFoundPlayer(Exception):  # Исключение о том, что игрок не был найден
     pass
@@ -22,8 +23,6 @@ def driverRun(url=""):
         print(ex)
         return None
 
-
-
 def getJsonInfoOfPlayer(id=0):  # Запрос информации об игроке
     try:
         jsonReqPlayer = json.loads(driverRun('https://swgoh.gg/api/player/' + str(id)))
@@ -31,14 +30,12 @@ def getJsonInfoOfPlayer(id=0):  # Запрос информации об игр�
     except:
         return None
 
-
 def getInfoAboutGuild(id=''):  # Запрос информации о гильдии
     try:
         jsonReqGuild = json.loads(driverRun('https://swgoh.gg/api/guild-profile/' + id))
         return jsonReqGuild['data']['members']
     except:
         return None
-
 
 # Получение информации по всем игрокам из гильдии
 def getInfoAboutAllPlayers(allyCodes=[]):
@@ -103,8 +100,7 @@ def writeDataIntoExcelTable(dictOfPlayers={}, path=""):
                 if unit != "": unitsTuple.append(unit)
     
     # Create a workbook and add a worksheet.
-    # workbook = xlsxwriter.Workbook(path + 'statistics_'+ datetime.now().strftime("%d_%m_%Y_%H_%M_%S")+ '.xlsx')
-    workbook = xlsxwriter.Workbook('Units.xlsx')
+    workbook = xlsxwriter.Workbook(path + 'statistics_'+ datetime.now().strftime("%d_%m_%Y_%H_%M_%S")+ '.xlsx')
     writeDataToSheet(workbook=workbook, dictOfPlayers=dictOfPlayers, unitsTuple=unitsTuple)
     arrayUnits = getAllUnitsFromGame()
     if arrayUnits:
@@ -244,10 +240,6 @@ def writeDataToSheet(workbook, dictOfPlayers, unitsTuple):
         worksheet.write_formula(row, col, '=COUNTIF(' + diapazon + str(2) + ':' + diapazon + str(len(dictOfPlayers)+1) +',"<>Нет")', cell_format_red)
         col+=1
 
-
-        
-
-
 def getStringOfGearAndRelic(dictOfPlayers={}, player='', unit=''):
     gearLvl = dictOfPlayers[player]['units'][unit]['gear_level']
     if gearLvl == 13:
@@ -279,7 +271,7 @@ def getInfoFromSWGOH(id=0, needGuild=False, pathForSave=""):  # Основная
     options.add_argument("user-agent=Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:84.0) Gecko/20100101 Firefox/84.0")
     options.add_argument("--disable-blink-features=AutomationControlled")
     options.add_argument("--headless")
-    driver = webdriver.Chrome('resources\chromedriver\chromedriver.exe', options=options)
+    driver = webdriver.Chrome(options=options)
     jsonPlayerInfo = getJsonInfoOfPlayer(id=id)
     if jsonPlayerInfo != None:
         dictOfPlayers = {}
@@ -298,7 +290,6 @@ def getInfoFromSWGOH(id=0, needGuild=False, pathForSave=""):  # Основная
         for key in dictOfPlayers.keys():
             dictOfPlayers[key]['units'] = arrOfUnitsToDict(
                 dictOfPlayers[key]['units'])
-        print(dictOfPlayers)
         dictOfPlayers = sortDictByGalacticPower(dictPlayers=dictOfPlayers)
         writeDataIntoExcelTable(dictOfPlayers=dictOfPlayers, path=pathForSave)
         driver.close()
@@ -314,7 +305,7 @@ def sortDictByGalacticPower(dictPlayers = {}):
     values = list(dictPlayers.values())
     for i in range(len(values)-1):
         for j in range(i, len(values)):
-            if values[i]['galactic_power']<values[j]['galactic_power']: values[i],values[j] = values[j],values[i]
+            if values[i]['galactic_power'] < values[j]['galactic_power']: values[i],values[j] = values[j],values[i]
     newDict = {}
     for value in values:
         for player in dictPlayers.keys():
@@ -323,17 +314,10 @@ def sortDictByGalacticPower(dictPlayers = {}):
     return newDict
 
 def main():
-    # id = int(input('Enter id: '))
-    # print("You need mana?")
-    # needGuild = False
-    # if (input().lower().find("y") != -1):
-    #     needGuild = True
     try:
         getInfoFromSWGOH(id=785425257, needGuild=False)
     except Exception as ex:
         print(ex)
-
-
 
 if __name__ == "__main__":
     main()
