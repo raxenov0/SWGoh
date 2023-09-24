@@ -75,7 +75,7 @@ def swCall():
         myThread2.join(1)
         time.sleep(2)
         # myThread2.join()
-        # ui.show_popup_success()
+        ui.show_popup_success()
 
     except NotFoundPlayer as ex:
         print(ex)
