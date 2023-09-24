@@ -1,0 +1,3 @@
+If u have trouble with selenim, go to the https://chromedriver.storage.googleapis.com/index.html
+and donwload driver with version of your browser.
+Have u good day ^_^

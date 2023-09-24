@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="resources">
+    <file>image/robot2.png</file>
+    <file>image/robot.png</file>
+    <file>image/switch-off.png</file>
+    <file>image/swith-on.png</file>
+    <file>image/background.png</file>
+  </qresource>
+</RCC>

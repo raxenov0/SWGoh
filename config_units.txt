@@ -1,0 +1,42 @@
+Geonosian Brood Alpha:Альфа
+Geonosian Spy:Шпион
+Sun Fac:Сан Фак
+Geonosian Soldier:Солдат
+Poggle the Lesser:Поггль
+Shaak Ti:Шаак
+CT-7567 "Rex":Рекс
+CT-5555 "Fives":Файвз
+CT-21-0408 "Echo":Эхо
+ARC Trooper:ЭРК
+General Grievous:Гривус
+B1 Battle Droid:B1
+B2 Super Battle Droid:B2
+Droideka:Дройдека
+IG-100 MagnaGuard:Магна
+Padmé Amidala:Падме
+Ahsoka Tano:Асока
+Jedi Knight Anakin:Энакин
+C-3PO:СЗРО
+General Kenobi:ГКеноби
+General Skywalker:ГЭМ
+Commander Ahsoka Tano:Кошка
+Commander Luke Skywalker:КЛюк
+Han Solo:Хан
+Chewbacca:Чуи
+Threepio & Chewie:СЗЧуи
+Jedi Knight Revan:СРеван
+Darth Revan:ДРеван
+Darth Malak:Малак
+Asajj Ventress:Вентресс
+Count Dooku:Дуку
+Maul:Мол
+Grand Admiral Thrawn:Траун
+Wat Tambor:Тамбор
+The Armorer:Кузнец
+Moff Gideon:Гидеон
+Rey:ЛРей
+Supreme Leader Kylo Ren:ЛКайло
+Sith Eternal Emperor:ЛПалп
+Lord Vader:ЛВ
+Jedi Master Luke Skywalker:ЛЛюк
+Jedi Master Kenobi:ЛКенбои
