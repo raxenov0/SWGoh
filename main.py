@@ -72,7 +72,6 @@ def swCall():
 
     # Обработка ошибок
     try:
-        print('in try')
         myThread2.join(1)
         time.sleep(2)
         # myThread2.join()
