@@ -1,0 +1,214 @@
+{
+   "data": [
+      {
+         "name": "Geonosian Brood Alpha:Альфа",
+         "type": "unit",
+         "id": 160237940376881420
+      },
+      {
+         "name": "Geonosian Spy:Шпион",
+         "type": "unit",
+         "id": 210035061468032885
+      },
+      {
+         "name": "Sun Fac:Сан Фак",
+         "type": "unit",
+         "id": 121406782076479567
+      },
+      {
+         "name": "Geonosian Soldier:Солдат",
+         "type": "unit",
+         "id": 203036446192875099
+      },
+      {
+         "name": "Poggle the Lesser:Поггль",
+         "type": "unit",
+         "id": 291761005507891889
+      },
+      {
+         "name": "Shaak Ti:Шаак",
+         "type": "unit",
+         "id": 232847880141594673
+      },
+      {
+         "name": "CT-7567 \"Rex\":Рекс",
+         "type": "unit",
+         "id": 314606329721061286
+      },
+      {
+         "name": "CT-5555 \"Fives\":Файвз",
+         "type": "unit",
+         "id": 233134381324695263
+      },
+      {
+         "name": "CT-21-0408 \"Echo\":Эхо",
+         "type": "unit",
+         "id": 294743125133535138
+      },
+      {
+         "name": "ARC Trooper:ЭРК",
+         "type": "unit",
+         "id": 205358920194759272
+      },
+      {
+         "name": "General Grievous:Гривус",
+         "type": "unit",
+         "id": 136040248866865715
+      },
+      {
+         "name": "B1 Battle Droid:B1",
+         "type": "unit",
+         "id": 141577478747183258
+      },
+      {
+         "name": "B2 Super Battle Droid:B2",
+         "type": "unit",
+         "id": 653398604177808707
+      },
+      {
+         "name": "Droideka:Дройдека",
+         "type": "unit",
+         "id": 114476270498545031
+      },
+      {
+         "name": "IG-100 MagnaGuard:Магна",
+         "type": "unit",
+         "id": 316782742398740660
+      },
+      {
+         "name": "Padmé Amidala:Падме",
+         "type": "unit",
+         "id": 508805106937019847
+      },
+      {
+         "name": "Ahsoka Tano:Асока",
+         "type": "unit",
+         "id": 103971209034858655
+      },
+      {
+         "name": "Jedi Knight Anakin:Энакин",
+         "type": "unit",
+         "id": 195785947944162207
+      },
+      {
+         "name": "C-3PO:СЗРО",
+         "type": "unit",
+         "id": 249857565419410654
+      },
+      {
+         "name": "General Kenobi:ГКеноби",
+         "type": "unit",
+         "id": 272185590449965898
+      },
+      {
+         "name": "General Skywalker:ГЭМ",
+         "type": "unit",
+         "id": 187054034417996300
+      },
+      {
+         "name": "Commander Ahsoka Tano:Кошка",
+         "type": "unit",
+         "id": 215449532160624109
+      },
+      {
+         "name": "Commander Luke Skywalker:КЛюк",
+         "type": "unit",
+         "id": 276289504560445993
+      },
+      {
+         "name": "Han Solo:Хан",
+         "type": "unit",
+         "id": 305933325097024524
+      },
+      {
+         "name": "Chewbacca:Чуи",
+         "type": "unit",
+         "id": 182375229894169373
+      },
+      {
+         "name": "Threepio & Chewie:СЗЧуи",
+         "type": "unit",
+         "id": 232621441696302913
+      },
+      {
+         "name": "Jedi Knight Revan:СРеван",
+         "type": "unit",
+         "id": 265048697322331569
+      },
+      {
+         "name": "Darth Revan:ДРеван",
+         "type": "unit",
+         "id": 333717409562858975
+      },
+      {
+         "name": "Darth Malak:Малак",
+         "type": "unit",
+         "id": 302666382514188298
+      },
+      {
+         "name": "Asajj Ventress:Вентресс",
+         "type": "unit",
+         "id": 276341617956707751
+      },
+      {
+         "name": "Count Dooku:Дуку",
+         "type": "unit",
+         "id": 114070903929096126
+      },
+      {
+         "name": "Maul:Мол",
+         "type": "unit",
+         "id": 211630240494589735
+      },
+      {
+         "name": "Grand Admiral Thrawn:Траун",
+         "type": "unit",
+         "id": 112439637820378482
+      },
+      {
+         "name": "Wat Tambor:Тамбор",
+         "type": "unit",
+         "id": 659657412322719894
+      },
+      {
+         "name": "The Armorer:Кузнец",
+         "type": "unit",
+         "id": 110028270524931446
+      },
+      {
+         "name": "Moff Gideon:Гидеон",
+         "type": "unit",
+         "id": 155446167433026391
+      },
+      {
+         "name": "Rey:ЛРей",
+         "type": "unit",
+         "id": 240249535927437393
+      },
+      {
+         "name": "Supreme Leader Kylo Ren:ЛКайло",
+         "type": "unit",
+         "id": 982878575927519423
+      },
+      {
+         "name": "Sith Eternal Emperor:ЛПалп",
+         "type": "unit",
+         "id": 100322527615473345
+      },
+      {
+         "name": "Lord Vader:ЛВ",
+         "type": "unit",
+         "id": 352886902745571866
+      },
+      {
+         "name": "Jedi Master Luke Skywalker:ЛЛюк",
+         "type": "unit",
+         "id": 359550648879221347
+      },
+      {
+         "name": "Jedi Master Kenobi:ЛКенбои",
+         "type": "unit",
+         "id": 144521083831398021
+      }
+   ]
+}

@@ -7,9 +7,13 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 from selenium.webdriver.chrome.service import Service
+from pysondb import db
+
+
 
 class NotFoundPlayer(Exception):  # Исключение о том, что игрок не был найден
     pass
+
 
 def driverRun(url=""):
     try:
@@ -23,19 +27,24 @@ def driverRun(url=""):
         print(ex)
         return None
 
+
 def getJsonInfoOfPlayer(id=0):  # Запрос информации об игроке
     try:
-        jsonReqPlayer = json.loads(driverRun('https://swgoh.gg/api/player/' + str(id)))
+        a = db.getDb("db_url.json")
+        jsonReqPlayer = json.loads(driverRun(a.getByQuery({"name": "player"})[0]["url"] + str(id)))
         return jsonReqPlayer
     except:
         return None
 
+
 def getInfoAboutGuild(id=''):  # Запрос информации о гильдии
     try:
-        jsonReqGuild = json.loads(driverRun('https://swgoh.gg/api/guild-profile/' + id))
+        a = db.getDb("db_url.json")
+        jsonReqGuild = json.loads(driverRun(a.getByQuery({"name": "guild"})[0]["url"] + id))
         return jsonReqGuild['data']['members']
     except:
         return None
+
 
 # Получение информации по всем игрокам из гильдии
 def getInfoAboutAllPlayers(allyCodes=[]):
@@ -46,12 +55,14 @@ def getInfoAboutAllPlayers(allyCodes=[]):
         dictWithGalacticPowerAndUnits['galactic_power'] = jsonReqPlayer['data']['galactic_power']
         dictWithGalacticPowerAndUnits['units'] = jsonReqPlayer['units']
         dictOfPlayers[jsonReqPlayer['data']['name']
-                      ] = dictWithGalacticPowerAndUnits
+        ] = dictWithGalacticPowerAndUnits
     return dictOfPlayers
+
 
 def getAllUnitsFromGame():
     try:
-        jsonReqUnits = json.loads(driverRun('https://swgoh.gg/api/characters'))
+        a = db.getDb("db_url.json")
+        jsonReqUnits = json.loads(driverRun(a.getByQuery({"name": "characters"})[0]["url"]))
         arrayUnits = []
         for unit in jsonReqUnits:
             arrayUnits.append(unit['name'])
@@ -59,62 +70,63 @@ def getAllUnitsFromGame():
     except:
         return None
 
+
 def getValidString(stringConfig=""):
     myString = ""
-    if (stringConfig.find(':')==stringConfig.rfind(':')) and stringConfig.find(':')!=-1:
+    if (stringConfig.find(':') == stringConfig.rfind(':')) and stringConfig.find(':') != -1:
         i = 0
         while stringConfig[i] == ' ':
-            i+=1
+            i += 1
         while stringConfig[i] != ':':
-            myString+=stringConfig[i]
-            i+=1
-        i-=1
-        i = len(myString)-1
+            myString += stringConfig[i]
+            i += 1
+        i -= 1
+        i = len(myString) - 1
         while myString[i] == ' ':
-            i-=1
-        myString=myString[:i+1]
+            i -= 1
+        myString = myString[:i + 1]
         i = stringConfig.find(':')
-        myString+=stringConfig[i]
-        i+=1
+        myString += stringConfig[i]
+        i += 1
         while stringConfig[i] == ' ':
-            i+=1
+            i += 1
         while i < len(stringConfig):
-            myString+=stringConfig[i]
-            i+=1
-        i = len(myString)-1
+            myString += stringConfig[i]
+            i += 1
+        i = len(myString) - 1
         while myString[i] == ' ':
-            i-=1
-        myString=myString[:i+1]
+            i -= 1
+        myString = myString[:i + 1]
         return myString
-    else: return 'InvalidString'
+    else:
+        return 'InvalidString'
+
 
 # Записываем все данные в Excel
 def writeDataIntoExcelTable(dictOfPlayers={}, path=""):
-    f = open('config_units.txt', 'r', encoding='UTF-8')
-    data = f.read()
+    a = db.getDb("db_config.json")
+    all_units = a.getAll()
     unitsTuple = []
-    for unit in data.split('\n'):
-        unit = getValidString(stringConfig=unit)
-        if unit != 'InvalidString':
-            if unit not in unitsTuple:
-                if unit != "": unitsTuple.append(unit)
-    
+    for unit in all_units:
+        unitsTuple.append(unit["name"])
+
+
     # Create a workbook and add a worksheet.
-    workbook = xlsxwriter.Workbook(path + 'statistics_'+ datetime.now().strftime("%d_%m_%Y_%H_%M_%S")+ '.xlsx')
+    workbook = xlsxwriter.Workbook(path + 'statistics_' + datetime.now().strftime("%d_%m_%Y_%H_%M_%S") + '.xlsx')
     writeDataToSheet(workbook=workbook, dictOfPlayers=dictOfPlayers, unitsTuple=unitsTuple)
     arrayUnits = getAllUnitsFromGame()
     if arrayUnits:
         writeDataToSheet(workbook=workbook, dictOfPlayers=dictOfPlayers, unitsTuple=arrayUnits)
     workbook.close()
 
+
 def writeDataToSheet(workbook, dictOfPlayers, unitsTuple):
     worksheet = workbook.add_worksheet()
-    cell_format_style =workbook.add_format()
+    cell_format_style = workbook.add_format()
     cell_format_style.set_pattern(1)
     cell_format_style.set_border(style=1)
     cell_format_style.set_bg_color('#ffffff')
     cell_format_style.set_align('center')
-
 
     cell_format_yellow = workbook.add_format()
     cell_format_yellow.set_pattern(1)  # This is optional when using a solid fill.
@@ -158,87 +170,105 @@ def writeDataToSheet(workbook, dictOfPlayers, unitsTuple):
     cell_format_lightgreen.set_border(style=1)
     cell_format_lightgreen.set_align('center')
 
-    cell_format_red = workbook.add_format({'num_format':"#,##0", 'bold': True})
+    cell_format_red = workbook.add_format({'num_format': "#,##0", 'bold': True})
     cell_format_red.set_pattern(1)
     cell_format_red.set_border(style=1)
     cell_format_red.set_bg_color('#ffffff')
     cell_format_red.set_align('center')
 
-    cell_format_num = workbook.add_format({'num_format':"#,##0"})
+    cell_format_num = workbook.add_format({'num_format': "#,##0"})
     cell_format_num.set_pattern(1)
     cell_format_num.set_border(style=1)
     cell_format_num.set_bg_color('#ffffff')
     cell_format_num.set_align('center')
 
-
-    worksheet.set_column(3,len(unitsTuple)+2, 7)
+    worksheet.set_column(3, len(unitsTuple) + 2, 7)
     worksheet.set_column('A:A', 3)
     worksheet.set_column('C:C', 13)
     row = 0
     col = 0
 
-    worksheet.write(row, col, '№',cell_format_style)
+    worksheet.write(row, col, '№', cell_format_style)
     col += 1
-    worksheet.write(row, col, 'Nickname',cell_format_style)
+    worksheet.write(row, col, 'Nickname', cell_format_style)
     col += 1
-    worksheet.write(row, col, 'Galactic power',cell_format_style)
+    worksheet.write(row, col, 'Galactic power', cell_format_style)
     col += 1
     for unit in unitsTuple:
         unit = unit.split(':')
-        if len(unit)>1:
+        if len(unit) > 1:
             worksheet.write(row, col, unit[1], cell_format_style)
         else:
-            worksheet.write(row, col, unit[0], cell_format_style) 
+            worksheet.write(row, col, unit[0], cell_format_style)
         col += 1
-    
+
     row += 1
     col = 0
     maxLengthNickname = 0
     legendCount = 0
     for player in dictOfPlayers.keys():
-        if (len(player)>maxLengthNickname): maxLengthNickname = len(player)
-        worksheet.write(row, col, row,cell_format_style)
+        if (len(player) > maxLengthNickname): maxLengthNickname = len(player)
+        worksheet.write(row, col, row, cell_format_style)
         col += 1
-        worksheet.write(row, col, player,cell_format_style)
+        worksheet.write(row, col, player, cell_format_style)
         col += 1
-        worksheet.write(row, col, dictOfPlayers[player]['galactic_power'],cell_format_num ) 
+        worksheet.write(row, col, dictOfPlayers[player]['galactic_power'], cell_format_num)
         col += 1
         for unit in unitsTuple:
             unit = unit.split(':')[0]
             try:
                 if dictOfPlayers[player]['units'][unit]['galactic_legend']: legendCount += 1
-                if getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit) =='13+9' : 
-                    worksheet.write(row, col,  getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit),cell_format_orange)
-                elif getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit) == '13+8' : 
-                    worksheet.write(row, col,  getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit),cell_format_blue)
-                elif getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit) == '13+7' : 
-                   worksheet.write(row, col,  getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit),cell_format_darkgreen)
-                elif getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit) in ['13+4','13+5','13+6','13+3','13+2','13+1','13'] : 
-                   worksheet.write(row, col,  getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit),cell_format_green)
-                elif getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit) == '12': 
-                    worksheet.write(row, col,  getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit),cell_format_lightgreen)
-                elif getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit) == '11': 
-                    worksheet.write(row, col,  getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit),cell_format_yellow)
-                elif getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit) !=0 :
-                    worksheet.write(row, col,  getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit), cell_format_pink)
+                if getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit) == '13+9':
+                    worksheet.write(row, col,
+                                    getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit),
+                                    cell_format_orange)
+                elif getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit) == '13+8':
+                    worksheet.write(row, col,
+                                    getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit),
+                                    cell_format_blue)
+                elif getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit) == '13+7':
+                    worksheet.write(row, col,
+                                    getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit),
+                                    cell_format_darkgreen)
+                elif getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit) in ['13+4', '13+5',
+                                                                                                        '13+6', '13+3',
+                                                                                                        '13+2', '13+1',
+                                                                                                        '13']:
+                    worksheet.write(row, col,
+                                    getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit),
+                                    cell_format_green)
+                elif getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit) == '12':
+                    worksheet.write(row, col,
+                                    getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit),
+                                    cell_format_lightgreen)
+                elif getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit) == '11':
+                    worksheet.write(row, col,
+                                    getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit),
+                                    cell_format_yellow)
+                elif getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit) != 0:
+                    worksheet.write(row, col,
+                                    getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit),
+                                    cell_format_pink)
             except:
                 worksheet.write(row, col, 'Нет', cell_format_pink)
             col += 1
         row += 1
-        col=0
-    if maxLengthNickname<5:
+        col = 0
+    if maxLengthNickname < 5:
         worksheet.set_column('B:B', maxLengthNickname)
     else:
-        worksheet.set_column('B:B', maxLengthNickname-2)
+        worksheet.set_column('B:B', maxLengthNickname - 2)
     worksheet.write(row, col, 'Лег', cell_format_red)
-    worksheet.write(row, col+1, legendCount, cell_format_red)
-    worksheet.write_formula(row, col+2, '=sum(C2:C%s' % str(len(dictOfPlayers)+1) + ')', cell_format_red)
+    worksheet.write(row, col + 1, legendCount, cell_format_red)
+    worksheet.write_formula(row, col + 2, '=sum(C2:C%s' % str(len(dictOfPlayers) + 1) + ')', cell_format_red)
     col += 3
-    for i in range(3, len(unitsTuple)+3):
-        diapazon = chr(ord('A')+i) if (i //
-                                    26) < 1 else chr(ord('A')+((i//26)-1)) + chr(ord('A')+((i%26)))
-        worksheet.write_formula(row, col, '=COUNTIF(' + diapazon + str(2) + ':' + diapazon + str(len(dictOfPlayers)+1) +',"<>Нет")', cell_format_red)
-        col+=1
+    for i in range(3, len(unitsTuple) + 3):
+        diapazon = chr(ord('A') + i) if (i //
+                                         26) < 1 else chr(ord('A') + ((i // 26) - 1)) + chr(ord('A') + ((i % 26)))
+        worksheet.write_formula(row, col, '=COUNTIF(' + diapazon + str(2) + ':' + diapazon + str(
+            len(dictOfPlayers) + 1) + ',"<>Нет")', cell_format_red)
+        col += 1
+
 
 def getStringOfGearAndRelic(dictOfPlayers={}, player='', unit=''):
     gearLvl = dictOfPlayers[player]['units'][unit]['gear_level']
@@ -249,7 +279,7 @@ def getStringOfGearAndRelic(dictOfPlayers={}, player='', unit=''):
         if stars == 7:
             return str(gearLvl)
         else:
-            return str(gearLvl) + '(' + str(stars) +'*)'
+            return str(gearLvl) + '(' + str(stars) + '*)'
 
 
 def arrOfUnitsToDict(units=[]):  # Массив персонажей переделываем в словарь
@@ -258,7 +288,7 @@ def arrOfUnitsToDict(units=[]):  # Массив персонажей перед�
         gearLvl = unit['data']['gear_level']
         lvlOfUnit = {}
         lvlOfUnit['gear_level'] = gearLvl
-        lvlOfUnit['relic_tier'] = unit['data']['relic_tier']-2
+        lvlOfUnit['relic_tier'] = unit['data']['relic_tier'] - 2
         lvlOfUnit['stars'] = unit['data']['rarity']
         lvlOfUnit['galactic_legend'] = unit['data']['is_galactic_legend']
         dictOfUnits[unit['data']['name']] = lvlOfUnit
@@ -286,7 +316,7 @@ def getInfoFromSWGOH(id=0, needGuild=False, pathForSave=""):  # Основная
             dictWithGalacticPowerAndUnits['galactic_power'] = jsonPlayerInfo['data']['galactic_power']
             dictWithGalacticPowerAndUnits['units'] = jsonPlayerInfo['units']
             dictOfPlayers[jsonPlayerInfo['data']
-                          ['name']] = dictWithGalacticPowerAndUnits
+            ['name']] = dictWithGalacticPowerAndUnits
         for key in dictOfPlayers.keys():
             dictOfPlayers[key]['units'] = arrOfUnitsToDict(
                 dictOfPlayers[key]['units'])
@@ -301,23 +331,25 @@ def getInfoFromSWGOH(id=0, needGuild=False, pathForSave=""):  # Основная
         raise NotFoundPlayer("Мы не смогли найти игрока")
 
 
-def sortDictByGalacticPower(dictPlayers = {}):
+def sortDictByGalacticPower(dictPlayers={}):
     values = list(dictPlayers.values())
-    for i in range(len(values)-1):
+    for i in range(len(values) - 1):
         for j in range(i, len(values)):
-            if values[i]['galactic_power'] < values[j]['galactic_power']: values[i],values[j] = values[j],values[i]
+            if values[i]['galactic_power'] < values[j]['galactic_power']: values[i], values[j] = values[j], values[i]
     newDict = {}
     for value in values:
         for player in dictPlayers.keys():
             if dictPlayers[player]['galactic_power'] == value['galactic_power']:
-                newDict[player]=dictPlayers[player]
+                newDict[player] = dictPlayers[player]
     return newDict
+
 
 def main():
     try:
         getInfoFromSWGOH(id=785425257, needGuild=False)
     except Exception as ex:
         print(ex)
+
 
 if __name__ == "__main__":
     main()

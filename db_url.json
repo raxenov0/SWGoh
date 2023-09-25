@@ -1,0 +1,18 @@
+{"data": [
+  {
+    "type": "url",
+    "name": "player",
+    "url": "https://swgoh.gg/api/player/"
+  },
+  {
+    "type": "url",
+    "name": "guild",
+    "url": "https://swgoh.gg/api/guild-profile/"
+  },
+  {
+    "type": "url",
+    "name": "characters",
+    "url": "https://swgoh.gg/api/characters"
+  }
+]
+}
