@@ -10,7 +10,6 @@ from selenium.webdriver.chrome.service import Service
 from pysondb import db
 
 
-
 class NotFoundPlayer(Exception):  # Исключение о том, что игрок не был найден
     pass
 
@@ -31,7 +30,8 @@ def driverRun(url=""):
 def getJsonInfoOfPlayer(id=0):  # Запрос информации об игроке
     try:
         a = db.getDb("db_url.json")
-        jsonReqPlayer = json.loads(driverRun(a.getByQuery({"name": "player"})[0]["url"] + str(id)))
+        jsonReqPlayer = json.loads(driverRun(a.getByQuery({"name": "api"})[0]["url"] +
+                                             a.getByQuery({"name": "player"})[0]["url"] + str(id)))
         return jsonReqPlayer
     except:
         return None
@@ -40,7 +40,8 @@ def getJsonInfoOfPlayer(id=0):  # Запрос информации об игр�
 def getInfoAboutGuild(id=''):  # Запрос информации о гильдии
     try:
         a = db.getDb("db_url.json")
-        jsonReqGuild = json.loads(driverRun(a.getByQuery({"name": "guild"})[0]["url"] + id))
+        jsonReqGuild = json.loads(driverRun(a.getByQuery({"name": "api"})[0]["url"] +
+                                            a.getByQuery({"name": "guild"})[0]["url"] + id))
         return jsonReqGuild['data']['members']
     except:
         return None
@@ -62,7 +63,8 @@ def getInfoAboutAllPlayers(allyCodes=[]):
 def getAllUnitsFromGame():
     try:
         a = db.getDb("db_url.json")
-        jsonReqUnits = json.loads(driverRun(a.getByQuery({"name": "characters"})[0]["url"]))
+        jsonReqUnits = json.loads(driverRun(a.getByQuery({"name": "api"})[0]["url"] +
+                                            a.getByQuery({"name": "characters"})[0]["url"]))
         arrayUnits = []
         for unit in jsonReqUnits:
             arrayUnits.append(unit['name'])
@@ -109,7 +111,6 @@ def writeDataIntoExcelTable(dictOfPlayers={}, path=""):
     unitsTuple = []
     for unit in all_units:
         unitsTuple.append(unit["name"])
-
 
     # Create a workbook and add a worksheet.
     workbook = xlsxwriter.Workbook(path + 'statistics_' + datetime.now().strftime("%d_%m_%Y_%H_%M_%S") + '.xlsx')
@@ -295,7 +296,7 @@ def arrOfUnitsToDict(units=[]):  # Массив персонажей перед�
     return dictOfUnits
 
 
-def getInfoFromSWGOH(id=0, needGuild=False, pathForSave=""):  # Основная функция
+def getInfoFromAPI(id=0, needGuild=False, pathForSave=""):  # Основная функция
     global driver
     options = Options()
     options.add_argument("user-agent=Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:84.0) Gecko/20100101 Firefox/84.0")
@@ -346,7 +347,7 @@ def sortDictByGalacticPower(dictPlayers={}):
 
 def main():
     try:
-        getInfoFromSWGOH(id=785425257, needGuild=False)
+        getInfoFromAPI(id=785425257, needGuild=False)
     except Exception as ex:
         print(ex)
 

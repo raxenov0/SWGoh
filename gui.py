@@ -16,6 +16,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog, QFileDialog, QMainWindow, QLineEdit
 from PyQt5.QtCore import QThread, pyqtSignal
 import time
+from pysondb import db
 
 
 class LineEdit(QLineEdit):
@@ -26,17 +27,19 @@ class LineEdit(QLineEdit):
     def focusInEvent(self, event):
         self.setInputMask('999-999-999')
 
+
 class MyThread(QThread):
     def __init__(self, sleep):
         super().__init__()
         self.sleepBar = sleep
         self.exit_event = threading.Event()
+
     change_value = pyqtSignal(int)
 
     def run(self):
         cnt = 0
         while cnt < 1000:
-            cnt+=1
+            cnt += 1
             time.sleep(self.sleepBar)
             self.change_value.emit(cnt)
             if self.exit_event.is_set():
@@ -45,11 +48,178 @@ class MyThread(QThread):
     def stop(self):
         self.exit_event.set()
 
+
+class Ui_Dialog(QDialog):
+    @staticmethod
+    def getItems():
+        a = db.getDb("db_config.json")
+        items = [i["name"] for i in a.getByQuery({"type": "unit"})]
+        return items
+
+    def setupUi(self, Dialog):
+        Dialog.setObjectName("Dialog")
+        Dialog.resize(557, 407)
+        Dialog.setMinimumSize(QtCore.QSize(557, 407))
+        Dialog.setMaximumSize(QtCore.QSize(557, 407))
+        self.pushButton_3 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_3.setGeometry(QtCore.QRect(20, 340, 120, 46))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.pushButton_3.setFont(font)
+        self.pushButton_3.setStyleSheet("QPushButton {\n"
+                                        "background: autoFill;\n"
+                                        "background-color: rgb(1, 74, 88);\n"
+                                        "color: rgb(255, 255, 255);\n"
+                                        "font: 75 12pt \"Arial\";\n"
+                                        "border-style: outset;\n"
+                                        "border-width: 2px;\n"
+                                        "border-radius: 23px;\n"
+                                        "}\n"
+                                        "QPushButton::pressed {\n"
+                                        "    background-color: rgb(97, 164, 173);\n"
+                                        "}")
+        self.pushButton_3.setObjectName("pushButton_3")
+        self.pushButton_4 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_4.setGeometry(QtCore.QRect(155, 340, 120, 46))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.pushButton_4.setFont(font)
+        self.pushButton_4.setStyleSheet("QPushButton {\n"
+                                        "background: autoFill;\n"
+                                        "background-color: rgb(1, 74, 88);\n"
+                                        "color: rgb(255, 255, 255);\n"
+                                        "font: 75 12pt \"Arial\";\n"
+                                        "border-style: outset;\n"
+                                        "border-width: 2px;\n"
+                                        "border-radius: 23px;\n"
+                                        "}\n"
+                                        "QPushButton::pressed {\n"
+                                        "    background-color: rgb(97, 164, 173);\n"
+                                        "}")
+        self.pushButton_4.setObjectName("pushButton_4")
+        self.listWidget = QtWidgets.QListWidget(Dialog)
+        self.listWidget.setGeometry(QtCore.QRect(20, 50, 521, 231))
+        self.listWidget.setStyleSheet("font-size: 18px;")
+        self.listWidget.setObjectName("listWidget")
+        self.listWidget.addItems(self.getItems())
+        self.pushButton_5 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_5.setGeometry(QtCore.QRect(330, 290, 100, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.pushButton_5.setFont(font)
+        self.pushButton_5.setStyleSheet("QPushButton {\n"
+                                        "background: autoFill;\n"
+                                        "background-color: rgb(1, 74, 88);\n"
+                                        "color: rgb(255, 255, 255);\n"
+                                        "font: 75 12pt \"Arial\";\n"
+                                        "border-style: outset;\n"
+                                        "border-width: 2px;\n"
+                                        "border-radius: 10px;\n"
+                                        "}\n"
+                                        "QPushButton::pressed {\n"
+                                        "    background-color: rgb(97, 164, 173);\n"
+                                        "}")
+        self.pushButton_5.setObjectName("pushButton_5")
+        self.pushButton_6 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_6.setGeometry(QtCore.QRect(440, 290, 100, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.pushButton_6.setFont(font)
+        self.pushButton_6.setStyleSheet("QPushButton {\n"
+                                        "background: autoFill;\n"
+                                        "background-color: rgb(1, 74, 88);\n"
+                                        "color: rgb(255, 255, 255);\n"
+                                        "font: 75 12pt \"Arial\";\n"
+                                        "border-style: outset;\n"
+                                        "border-width: 2px;\n"
+                                        "border-radius: 10px;\n"
+                                        "}\n"
+                                        "QPushButton::pressed {\n"
+                                        "    background-color: rgb(97, 164, 173);\n"
+                                        "}")
+        self.pushButton_6.setObjectName("pushButton_6")
+        self.label = QtWidgets.QLabel(Dialog)
+        self.label.setGeometry(QtCore.QRect(20, 10, 67, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label.setFont(font)
+        self.label.setStyleSheet("background: transparent;\n"
+                                 "font: 75 12pt \"Arial\";\n"
+                                 "color: rgb(0, 59, 70);")
+        self.label.setObjectName("label")
+        self.lineEdit = QtWidgets.QLineEdit(Dialog)
+        self.lineEdit.setGeometry(QtCore.QRect(20, 290, 290, 30))
+        self.lineEdit.setStyleSheet("border-style: outset;\n"
+                                      "border-width: 2px;\n"
+                                      "border-radius: 8px;\n"
+                                      "border-color: rgb(0, 0, 0);\n"
+                                      "background: transparent;\n"
+                                      "font-size: 18px;")
+        self.lineEdit.setObjectName("lineEdit_3")
+
+        self.retranslateUi(Dialog)
+        self.checkActions()
+        QtCore.QMetaObject.connectSlotsByName(Dialog)
+
+    def retranslateUi(self, Dialog):
+        _translate = QtCore.QCoreApplication.translate
+        Dialog.setWindowTitle(_translate("Dialog", "Update config"))
+        self.pushButton_3.setText(_translate("Dialog", "Save"))
+        self.pushButton_4.setText(_translate("Dialog", "Cancel"))
+        self.pushButton_5.setText(_translate("Dialog", "Add"))
+        self.pushButton_6.setText(_translate("Dialog", "Remove"))
+        self.label.setText(_translate("Dialog", "Имена"))
+
+    def checkActions(self):
+        self.pushButton_5.clicked.connect(self.addItemInList)
+        self.pushButton_6.clicked.connect(self.removeItemFromList)
+        self.pushButton_3.clicked.connect(self.saveConfig)
+        self.pushButton_4.clicked.connect(self.close)
+
+    def saveConfig(self):
+
+        self.close()
+
+    def addItemInList(self):
+        item = self.lineEdit.text()
+        if item:
+            self.listWidget.addItem(item)
+            self.listWidget.scrollToItem(self.listWidget.item(self.listWidget.count() - 1))
+            self.lineEdit.setText('')
+
+    def removeItemFromList(self):
+        item = self.listWidget.currentRow()
+        if item != -1:
+            self.listWidget.takeItem(item)
+            self.listWidget.setCurrentRow(-1)
+
+
 class PopupException(QDialog):
     def __init__(self, labelText, id=None):
         super().__init__()
         self.text = labelText
         self.id = id
+
     def setupUi(self, Form):
         Form.setObjectName("Error")
         Form.resize(430, 140)
@@ -57,17 +227,17 @@ class PopupException(QDialog):
         self.pushButton = QtWidgets.QPushButton(Form)
         self.pushButton.setGeometry(QtCore.QRect(300, 90, 105, 30))
         self.pushButton.setStyleSheet("background: autoFill;\n"
-"background-color: rgb(1, 74, 88);\n"
-"color: rgb(255, 255, 255);\n"
-"font: 75 12pt \"Arial\";\n"
-"border-style: outset;\n"
-"border-radius: 15px;")
+                                      "background-color: rgb(1, 74, 88);\n"
+                                      "color: rgb(255, 255, 255);\n"
+                                      "font: 75 12pt \"Arial\";\n"
+                                      "border-style: outset;\n"
+                                      "border-radius: 15px;")
         self.pushButton.setObjectName("pushButton")
         self.label = QtWidgets.QLabel(Form)
         self.label.setGeometry(QtCore.QRect(20, 40, 391, 41))
         self.label.setStyleSheet("font: 75 14pt \"Arial\";\n"
-"background: transparent;\n"
-"color: rgb(1, 74, 88);")
+                                 "background: transparent;\n"
+                                 "color: rgb(1, 74, 88);")
         self.label.setObjectName("label")
 
         self.retranslateUi(Form)
@@ -84,8 +254,11 @@ class PopupException(QDialog):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.pushButton.clicked.connect(self.close)
 
+
 class Ui_MainWindow(QMainWindow):
     def setupUi(self, MainWindow):
+        a = db.getDb("db_url.json")
+
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(685, 500)
         MainWindow.setMinimumSize(QtCore.QSize(685, 500))
@@ -95,7 +268,7 @@ class Ui_MainWindow(QMainWindow):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(350, 295, 130, 46))
+        self.pushButton.setGeometry(QtCore.QRect(380, 305, 130, 46))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(12)
@@ -104,22 +277,22 @@ class Ui_MainWindow(QMainWindow):
         font.setWeight(9)
         self.pushButton.setFont(font)
         self.pushButton.setStyleSheet(
-                                      "QPushButton {\n"
-                                      "background: autoFill;\n"
-                                      "background-color: rgb(1, 74, 88);\n"
-                                      "color: rgb(255, 255, 255);\n"
-                                      "font: 75 12pt \"Arial\";\n"
-                                      "border-style: outset;\n"
-                                      "border-width: 2px;\n"
-                                      "border-radius: 23px;\n"
-                                      "}\n"
-                                      "QPushButton::pressed\n"
-                                    "{\n"
-                                    "background-color: rgb(97, 164, 173);\n"
-                                    "}")
+            "QPushButton {\n"
+            "background: autoFill;\n"
+            "background-color: rgb(1, 74, 88);\n"
+            "color: rgb(255, 255, 255);\n"
+            "font: 75 12pt \"Arial\";\n"
+            "border-style: outset;\n"
+            "border-width: 2px;\n"
+            "border-radius: 23px;\n"
+            "}\n"
+            "QPushButton::pressed\n"
+            "{\n"
+            "background-color: rgb(97, 164, 173);\n"
+            "}")
         self.pushButton.setObjectName("pushButton")
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(515, 295, 130, 46))
+        self.pushButton_2.setGeometry(QtCore.QRect(525, 305, 120, 46))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(10)
@@ -127,19 +300,67 @@ class Ui_MainWindow(QMainWindow):
         font.setWeight(50)
         self.pushButton_2.setFont(font)
         self.pushButton_2.setStyleSheet(
-                                      "QPushButton {\n"
-                                      "background: autoFill;\n"
-                                      "background-color: rgb(1, 74, 88);\n"
-                                      "color: rgb(255, 255, 255);\n"
-                                      "border-style: outset;\n"
-                                      "border-width: 2px;\n"
-                                      "border-radius: 23px;\n"
-                                      "}\n"
-                                      "QPushButton::pressed\n"
-                                    "{\n"
-                                    "background-color: rgb(97, 164, 173);\n"
-                                    "}")
+            "QPushButton {\n"
+            "background: autoFill;\n"
+            "background-color: rgb(1, 74, 88);\n"
+            "color: rgb(255, 255, 255);\n"
+            "border-style: outset;\n"
+            "border-width: 2px;\n"
+            "border-radius: 23px;\n"
+            "}\n"
+            "QPushButton::pressed\n"
+            "{\n"
+            "background-color: rgb(97, 164, 173);\n"
+            "}")
         self.pushButton_2.setObjectName("pushButton_2")
+        self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_3.setGeometry(QtCore.QRect(240, 305, 120, 46))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.pushButton_3.setFont(font)
+        self.pushButton_3.setStyleSheet(
+            "QPushButton {\n"
+            "background: autoFill;\n"
+            "background-color: rgb(1, 74, 88);\n"
+            "color: rgb(255, 255, 255);\n"
+            "font: 75 12pt \"Arial\";\n"
+            "border-style: outset;\n"
+            "border-width: 2px;\n"
+            "border-radius: 23px;\n"
+            "}\n"
+            "QPushButton::pressed\n"
+            "{\n"
+            "background-color: rgb(97, 164, 173);\n"
+            "}")
+        self.pushButton_3.setObjectName("pushButton_3")
+        self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_4.setGeometry(QtCore.QRect(568, 160, 75, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.pushButton_4.setFont(font)
+        self.pushButton_4.setStyleSheet(
+            "QPushButton {\n"
+            "background: autoFill;\n"
+            "background-color: rgb(1, 74, 88);\n"
+            "color: rgb(255, 255, 255);\n"
+            "font: 75 11pt \"Arial\";\n"
+            "border-style: outset;\n"
+            "border-width: 2px;\n"
+            "border-radius: 10px;\n"
+            "}\n"
+            "QPushButton::pressed\n"
+            "{\n"
+            "background-color: rgb(97, 164, 173);\n"
+            "}")
+        self.pushButton_4.setObjectName("pushButton_4")
         self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
         self.progressBar.setGeometry(QtCore.QRect(199, 423, 444, 15))
         self.progressBar.setStyleSheet("QProgressBar {\n"
@@ -180,48 +401,60 @@ class Ui_MainWindow(QMainWindow):
                                  "color: rgb(0, 59, 70);")
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(245, 175, 87, 23))
+        self.label_2.setGeometry(QtCore.QRect(245, 207, 87, 23))
         self.label_2.setStyleSheet("background: transparent;\n"
                                    "font: 75 12pt \"Arial\";\n"
                                    "color: rgb(0, 59, 70);")
         self.label_2.setObjectName("label_2")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
-        self.label_3.setGeometry(QtCore.QRect(428, 175, 91, 24))
+        self.label_3.setGeometry(QtCore.QRect(428, 207, 91, 24))
         self.label_3.setWhatsThis("")
         self.label_3.setStyleSheet("background: transparent;\n"
                                    "font: 75 12pt \"Arial\";\n"
                                    "color: rgb(0, 59, 70);")
         self.label_3.setObjectName("label_3")
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(245, 245, 80, 23))
+        self.label_4.setGeometry(QtCore.QRect(245, 250, 80, 23))
         self.label_4.setStyleSheet("font: 75 12pt \"Arial\";\n"
-                                   "color: rgb(0, 61, 74);\n"
+                                   "color: rgb(0, 59, 70);\n"
                                    "background: transparent;")
         self.label_4.setObjectName("label_4")
-        self.label_6 = QtWidgets.QLabel(self.centralwidget)
-        self.label_6.setGeometry(QtCore.QRect(522, 449, 231, 31))
-        self.label_6.setStyleSheet("background: transparent;\n"
-                                   "font: 75 12pt \"Arial\";\n"
-                                   "color: rgb(64, 110, 119);")
-        self.label_6.setObjectName("label_6")
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
         self.label_5.setGeometry(QtCore.QRect(310, 20, 321, 41))
         self.label_5.setStyleSheet("font: 75 26pt \"Arial\";\n"
                                    "color: rgb(235, 242, 244);\n"
                                    "background:transparent;")
         self.label_5.setObjectName("label_5")
+        self.label_6 = QtWidgets.QLabel(self.centralwidget)
+        self.label_6.setGeometry(QtCore.QRect(245, 162, 80, 23))
+        self.label_6.setStyleSheet("background: transparent;\n"
+                                   "font: 75 12pt \"Arial\";\n"
+                                   "color: rgb(0, 59, 70);")
+        self.label_6.setObjectName("label_6")
         self.lineEdit_2 = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_2.setGeometry(QtCore.QRect(350, 240, 290, 30))
+        self.lineEdit_2.setGeometry(QtCore.QRect(350, 248, 290, 30))
         self.lineEdit_2.setStyleSheet("border-style: outset;\n"
                                       "border-width: 2px;\n"
                                       "border-radius: 8px;\n"
                                       "border-color: rgb(0, 0, 0);\n"
-                                      "background: transparent;")
+                                      "background: transparent;\n"
+                                      "font-size: 16px;")
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.lineEdit_2.setEnabled(False)
-        self.lineEdit_2.setText(os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop').replace('\\','/'))
+        self.lineEdit_2.setText(os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop').replace('\\', '/'))
+        self.lineEdit_3 = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_3.setGeometry(QtCore.QRect(350, 160, 211, 30))
+        self.lineEdit_3.setStyleSheet("border-style: outset;\n"
+                                     "border-width: 2px;\n"
+                                     "border-radius: 8px;\n"
+                                     "border-color: rgb(0, 0, 0);\n"
+                                     "background: transparent;\n"
+                                     "font-size: 18px;\n"
+                                     )
+        self.lineEdit_3.setObjectName("lineEdit_3")
+        self.lineEdit_3.setText(a.getByQuery({"name": "api"})[0]["url"])
         self.checkBox = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox.setGeometry(QtCore.QRect(355, 160, 57, 50))
+        self.checkBox.setGeometry(QtCore.QRect(355, 193, 57, 50))
         self.checkBox.setStyleSheet("QCheckBox::indicator {\n"
                                     "    width: 50px;\n"
                                     "    height: 50px;\n"
@@ -257,6 +490,7 @@ class Ui_MainWindow(QMainWindow):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
+        self.checkActions()
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -264,22 +498,30 @@ class Ui_MainWindow(QMainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "GUILD HELPER"))
         self.pushButton.setText(_translate("MainWindow", "GO"))
         self.pushButton_2.setText(_translate("MainWindow", "Change \n"
-                                             " Directory"))
+                                                           " Directory"))
+        self.pushButton_3.setText(_translate("MainWindow", "Config"))
+        self.pushButton_4.setText(_translate("MainWindow", "Save"))
         self.label.setText(_translate("MainWindow", "User ID"))
         self.label_2.setText(_translate("MainWindow", "Only User"))
         self.label_3.setToolTip(_translate(
-            "MainWindow", "<span style=\'font-size: 13px;\'>Переключатель в режиме \"All guild\" предоставляет информацию о всех участниках гильдии в которой состоит игрок.</span>"))
+            "MainWindow",
+            "<span style=\'font-size: 13px;\'>Переключатель в режиме \"All guild\" предоставляет информацию о всех участниках гильдии в которой состоит игрок.</span>"))
         self.label_3.setToolTipDuration(0)
         self.label_3.setText(_translate(
-            "MainWindow", "<html><head/><body><p>All Guild <span style=\" vertical-align:super;\">ⓘ</span></p></body></html>"))
+            "MainWindow",
+            "<html><head/><body><p>All Guild <span style=\" vertical-align:super;\">ⓘ</span></p></body></html>"))
         self.label_4.setText(_translate("MainWindow", "Directory"))
-        self.label_6.setText(_translate("MainWindow", "SWGOH.GG"))
         self.label_5.setText(_translate("MainWindow", "GUILD HELPER"))
+        self.label_6.setText(_translate("MainWindow", "URL API"))
+
+    def checkActions(self):
         self.setFocusLineEdit()
         self.pushButton_2.clicked.connect(self.changeDirectory)
         self.checkBox.clicked.connect(self.setFocusLineEdit)
+        self.pushButton_3.clicked.connect(self.updateConfig)
+        self.pushButton_4.clicked.connect(self.saveUrlApitoConfig)
         # self.connect(self.progressBar.value==100, self.show_popup_success)
-        
+
     def setFocusLineEdit(self):
         self.lineEdit.setFocus()
 
@@ -290,7 +532,14 @@ class Ui_MainWindow(QMainWindow):
         self.lineEdit_2.setText(fname)
         self.setFocusLineEdit()
 
-    
+    def saveUrlApitoConfig(self):
+        pass
+
+    def updateConfig(self):
+        dialog = Ui_Dialog()
+        dialog.setupUi(dialog)
+        dialog.exec_()
+
     def startProgressBar(self):
         self.thread1 = MyThread(sleep=1.5)
         self.thread1.change_value.connect(self.changeValueOfProgressBar)
@@ -323,13 +572,13 @@ class Ui_MainWindow(QMainWindow):
         msg = PopupException("Statistic was successfully complete")
         msg.setupUi(msg)
         msg.exec_()
-        
 
 
 if __name__ == "__main__":
     import sys
     import ctypes
-    myappid = 'mycompany.myproduct.subproduct.version' # arbitrary string
+
+    myappid = 'mycompany.myproduct.subproduct.version'  # arbitrary string
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
     app = QtWidgets.QApplication(sys.argv)
     app.setWindowIcon(QtGui.QIcon('ico.ico'))

@@ -1,6 +1,6 @@
 from gui import *
-from swgoh_parser import getInfoFromSWGOH
-from swgoh_parser import NotFoundPlayer
+from api_parser import getInfoFromAPI
+from api_parser import NotFoundPlayer
 import threading
 import sys
 
@@ -17,7 +17,7 @@ class ParserThread(threading.Thread):
     def run(self):
         print('run')
         try:
-            getInfoFromSWGOH(
+            getInfoFromAPI(
                 id=self.PlayerId, needGuild=self.PlayerNeedGuild, pathForSave=self.PlayerPathForSave)
             killResources(ui=self.window)
             time.sleep(3)
