@@ -530,7 +530,7 @@ class Ui_MainWindow(QMainWindow):
         self.pushButton_2.clicked.connect(self.changeDirectory)
         self.checkBox.clicked.connect(self.setFocusLineEdit)
         self.pushButton_3.clicked.connect(self.updateConfig)
-        self.pushButton_4.clicked.connect(self.saveUrlApitoConfig)
+        self.pushButton_4.clicked.connect(self.saveUrlAPItoConfig)
         # self.connect(self.progressBar.value==100, self.show_popup_success)
 
     def setFocusLineEdit(self):
@@ -539,14 +539,16 @@ class Ui_MainWindow(QMainWindow):
     def changeDirectory(self):
         dialog = QFileDialog()
         dialog.setFileMode(QFileDialog.DirectoryOnly)
-        fname = dialog.getExistingDirectory(self, 'Open file',
-                                            os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop'))
+        fname = dialog.getExistingDirectory(self, 'Open file', os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop'))
         self.lineEdit_2.setText(fname)
         self.setFocusLineEdit()
 
-    def saveUrlApitoConfig(self):
+    def saveUrlAPItoConfig(self):
         a = db.getDb("db_url.json")
-        a.updateByQuery({"name": "api"}, {"url": self.lineEdit_3.text()})
+        url = self.lineEdit_3.text()
+        if url[-1] != '/':
+            url += '/'
+        a.updateByQuery({"name": "api"}, {"url": url})
 
     def updateConfig(self):
         dialog = Ui_Dialog()
