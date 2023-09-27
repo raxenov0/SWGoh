@@ -437,7 +437,7 @@ class Ui_MainWindow(QMainWindow):
                                     "}\n"
                                     "\n"
                                     "QCheckBox::indicator::checked {\n"
-                                    "    image: url(:/resources/image/swith-on.png);\n"
+                                    "    image: url(:/resources/image/switch-on.png);\n"
                                     "}\n"
                                     "\n"
                                     "QCheckBox::indicator::unchecked {\n"
