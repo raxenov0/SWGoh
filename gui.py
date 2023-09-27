@@ -83,6 +83,28 @@ class Ui_Dialog(QDialog):
                                         "    background-color: rgb(97, 164, 173);\n"
                                         "}")
         self.pushButton_3.setObjectName("pushButton_3")
+        self.pushButton_4 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_4.setGeometry(QtCore.QRect(155, 340, 120, 46))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.pushButton_4.setFont(font)
+        self.pushButton_4.setStyleSheet("QPushButton {\n"
+                                        "background: autoFill;\n"
+                                        "background-color: rgb(1, 74, 88);\n"
+                                        "color: rgb(255, 255, 255);\n"
+                                        "font: 75 12pt \"Arial\";\n"
+                                        "border-style: outset;\n"
+                                        "border-width: 2px;\n"
+                                        "border-radius: 23px;\n"
+                                        "}\n"
+                                        "QPushButton::pressed {\n"
+                                        "    background-color: rgb(97, 164, 173);\n"
+                                        "}")
+        self.pushButton_4.setObjectName("pushButton_4")
         self.listWidget = QtWidgets.QListWidget(Dialog)
         self.listWidget.setGeometry(QtCore.QRect(20, 50, 521, 231))
         self.listWidget.setStyleSheet("font-size: 18px;")
@@ -162,37 +184,47 @@ class Ui_Dialog(QDialog):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Update config"))
-        self.pushButton_3.setText(_translate("Dialog", "Exit"))
+        self.pushButton_3.setText(_translate("Dialog", "Save"))
+        self.pushButton_4.setText(_translate("Dialog", "Cancel"))
         self.pushButton_5.setText(_translate("Dialog", "Add"))
         self.pushButton_6.setText(_translate("Dialog", "Remove"))
-        self.label.setText(_translate("Dialog", "Имена"))
+        self.label.setText(_translate("Dialog", "Names"))
 
     def checkActions(self):
         self.pushButton_5.clicked.connect(self.addItemInList)
         self.pushButton_6.clicked.connect(self.removeItemFromList)
-        self.pushButton_3.clicked.connect(self.close)
+        self.pushButton_3.clicked.connect(self.saveConfig)
+        self.pushButton_4.clicked.connect(self.close)
+
+    def saveConfig(self):
+        a = db.getDb("db_config.json")
+        a.deleteAll()
+
+        items = []
+        for i in range(self.listWidget.count()):
+            items.append({"name": self.listWidget.item(i).text(), "type": "unit"})
+
+        a.addMany(items)
+        self.close()
 
     def addItemInList(self):
         item = self.lineEdit.text()
         if item:
-            a = db.getDb("db_config.json")
             self.listWidget.addItem(item)
             self.listWidget.scrollToItem(self.listWidget.item(self.listWidget.count() - 1))
-            a.add({"name": item, "type": "unit"})
             self.lineEdit.setText('')
 
     def removeItemFromList(self):
         item = self.listWidget.currentRow()
         if item != -1:
-            a = db.getDb("db_config.json")
-            a.deleteById(a.getByQuery({"name": self.listWidget.item(item).text()})[0]["id"])
             self.listWidget.takeItem(item)
             self.listWidget.setCurrentRow(-1)
 
 
 class PopupException(QDialog):
-    def __init__(self, labelText, id=None):
+    def __init__(self, labelText, error=True, id=None):
         super().__init__()
+        self.flagError = error
         self.text = labelText
         self.id = id
 
@@ -221,7 +253,10 @@ class PopupException(QDialog):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Error"))
+        if self.flagError:
+            Form.setWindowTitle(_translate("Form", "Error"))
+        else:
+            Form.setWindowTitle(_translate("Form", "Success"))
         self.pushButton.setText(_translate("Form", "OK"))
         if self.id:
             self.label.setText(_translate("Form", self.text + self.id))
@@ -537,7 +572,7 @@ class Ui_MainWindow(QMainWindow):
         self.checkBox_2.setChecked(not self.checkBox_2.isChecked())
 
     def show_popup(self):
-        msg = PopupException("Can't find the player with id: ", self.lineEdit.text())
+        msg = PopupException("Can't find the player with id: ", id=self.lineEdit.text())
         msg.setupUi(msg)
         msg.exec_()
 
@@ -547,7 +582,7 @@ class Ui_MainWindow(QMainWindow):
         msg.exec_()
 
     def show_popup_success(self):
-        msg = PopupException("Statistic was successfully complete")
+        msg = PopupException("Statistic was successfully complete", False)
         msg.setupUi(msg)
         msg.exec_()
 

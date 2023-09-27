@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>557</width>
+    <height>407</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>557</width>
+    <height>407</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>557</width>
+    <height>407</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Update config</string>
+  </property>
+  <widget class="QPushButton" name="pushButton_3">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>340</y>
+     <width>120</width>
+     <height>46</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+     <weight>9</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+background: autoFill;
+background-color: rgb(1, 74, 88);
+color: rgb(255, 255, 255);
+font: 75 12pt &quot;Arial&quot;;
+border-style: outset;
+border-width: 2px;
+border-radius: 23px;
+}
+QPushButton::pressed {
+	background-color: rgb(97, 164, 173);
+}</string>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_4">
+   <property name="geometry">
+    <rect>
+     <x>155</x>
+     <y>340</y>
+     <width>120</width>
+     <height>46</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+     <weight>9</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+background: autoFill;
+background-color: rgb(1, 74, 88);
+color: rgb(255, 255, 255);
+font: 75 12pt &quot;Arial&quot;;
+border-style: outset;
+border-width: 2px;
+border-radius: 23px;
+}
+QPushButton::pressed {
+	background-color: rgb(97, 164, 173);
+}</string>
+   </property>
+   <property name="text">
+    <string>Cancel</string>
+   </property>
+  </widget>
+  <widget class="QListWidget" name="listWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>50</y>
+     <width>521</width>
+     <height>231</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_5">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>290</y>
+     <width>100</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+     <weight>9</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+background: autoFill;
+background-color: rgb(1, 74, 88);
+color: rgb(255, 255, 255);
+font: 75 12pt &quot;Arial&quot;;
+border-style: outset;
+border-width: 2px;
+border-radius: 10px;
+}
+QPushButton::pressed {
+	background-color: rgb(97, 164, 173);
+}</string>
+   </property>
+   <property name="text">
+    <string>Add</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_6">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>290</y>
+     <width>100</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+     <weight>9</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+background: autoFill;
+background-color: rgb(1, 74, 88);
+color: rgb(255, 255, 255);
+font: 75 12pt &quot;Arial&quot;;
+border-style: outset;
+border-width: 2px;
+border-radius: 10px;
+}
+QPushButton::pressed {
+	background-color: rgb(97, 164, 173);
+}</string>
+   </property>
+   <property name="text">
+    <string>Remove</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>67</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+     <weight>9</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: transparent;
+font: 75 12pt &quot;Arial&quot;;
+color: rgb(0, 59, 70);</string>
+   </property>
+   <property name="text">
+    <string>Имена</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_3">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>290</y>
+     <width>290</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-style: outset;
+border-width: 2px;
+border-radius: 8px;
+border-color: rgb(0, 0, 0);
+background: transparent;
+font-size: 18px;</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
