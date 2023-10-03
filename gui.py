@@ -275,7 +275,9 @@ class Ui_MainWindow(QMainWindow):
         MainWindow.setMinimumSize(QtCore.QSize(685, 500))
         MainWindow.setMaximumSize(QtCore.QSize(685, 500))
         MainWindow.setStyleSheet(
-            "background-image: url(:/resources/image/background.png);")
+            "#centralwidget {\n"
+            "background-image: url(:/resources/image/background.png);\n"
+            "}")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)

@@ -26,9 +26,14 @@
    <string>GUILD HElLPER</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-image: url(:/resources/image/background.png);</string>
+   <string notr="true">#centralwidget {
+	background-image: url(:/resources/image/background.png);
+}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
@@ -263,6 +268,9 @@ font-size: 20px;</string>
     </property>
    </widget>
    <widget class="QCheckBox" name="checkBox">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>355</x>
@@ -278,7 +286,7 @@ font-size: 20px;</string>
 }
 
 QCheckBox::indicator::checked {
-	image: url(:/resources/image/swith-on.png);
+	image: url(:/resources/image/switch-on.png);
 }
 
 QCheckBox::indicator::unchecked {
@@ -288,11 +296,20 @@ QCheckBox::indicator::unchecked {
     <property name="text">
      <string/>
     </property>
-    <property name="checked">
+    <property name="checkable">
      <bool>true</bool>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+    <property name="tristate">
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="QCheckBox" name="checkBox_2">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>570</x>
@@ -318,6 +335,9 @@ QCheckBox::indicator::unchecked {
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="QLabel" name="label_6">
