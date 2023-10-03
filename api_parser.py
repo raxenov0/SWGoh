@@ -50,7 +50,14 @@ def getInfoAboutGuild(id=''):  # Запрос информации о гильд
 # Получение информации по всем игрокам из гильдии
 def getInfoAboutAllPlayers(allyCodes=[]):
     dictOfPlayers = {}
-    for allyCode in allyCodes:
+    fixedAllyCodes = []
+
+    for code in allyCodes:
+        if str(code) == "None":
+            continue
+        fixedAllyCodes.append(code)
+
+    for allyCode in fixedAllyCodes:
         dictWithGalacticPowerAndUnits = {}
         jsonReqPlayer = getJsonInfoOfPlayer(id=allyCode)
         dictWithGalacticPowerAndUnits['galactic_power'] = jsonReqPlayer['data']['galactic_power']
