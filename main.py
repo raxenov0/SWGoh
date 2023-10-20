@@ -3,6 +3,7 @@ from api_parser import getInfoFromAPI
 from api_parser import NotFoundPlayer
 import threading
 import sys
+import os
 
 
 class ParserThread(threading.Thread):
@@ -92,6 +93,7 @@ def swCall():
 def main():
     import sys
     import ctypes
+    os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
     myappid = 'mycompany.myproduct.subproduct.version' # arbitrary string
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
     app = QtWidgets.QApplication(sys.argv)
