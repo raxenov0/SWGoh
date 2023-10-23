@@ -2,13 +2,9 @@ from datetime import datetime
 import requests
 import json
 import xlsxwriter
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
-from selenium.webdriver.chrome.service import Service
 from pysondb import db
-
+from time import sleep
 
 class NotFoundPlayer(Exception):  # Исключение о том, что игрок не был найден
     pass
@@ -16,9 +12,10 @@ class NotFoundPlayer(Exception):  # Исключение о том, что иг�
 
 def driverRun(url=""):
     try:
-        driver.get(url)
-        driver.implicitly_wait(3)
-        codeOfPage = driver.page_source
+        user_agent = {'User-agent': 'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36'}
+        response = requests.get(url, headers = user_agent)
+        codeOfPage = response.text
+        print(codeOfPage)
         soup = BeautifulSoup(codeOfPage, 'html.parser')
         some = soup.find("pre").text
         return some
@@ -304,12 +301,6 @@ def arrOfUnitsToDict(units=[]):  # Массив персонажей перед�
 
 
 def getInfoFromAPI(id=0, needGuild=False, pathForSave=""):  # Основная функция
-    global driver
-    options = Options()
-    options.add_argument("user-agent=Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:84.0) Gecko/20100101 Firefox/84.0")
-    options.add_argument("--disable-blink-features=AutomationControlled")
-    options.add_argument("--headless")
-    driver = webdriver.Chrome(options=options)
     jsonPlayerInfo = getJsonInfoOfPlayer(id=id)
     if jsonPlayerInfo != None:
         dictOfPlayers = {}
@@ -330,12 +321,8 @@ def getInfoFromAPI(id=0, needGuild=False, pathForSave=""):  # Основная �
                 dictOfPlayers[key]['units'])
         dictOfPlayers = sortDictByGalacticPower(dictPlayers=dictOfPlayers)
         writeDataIntoExcelTable(dictOfPlayers=dictOfPlayers, path=pathForSave)
-        driver.close()
-        driver.quit()
         return 0
     else:
-        driver.close()
-        driver.quit()
         raise NotFoundPlayer("Мы не смогли найти игрока")
 
 
