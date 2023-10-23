@@ -2,9 +2,7 @@ from datetime import datetime
 import requests
 import json
 import xlsxwriter
-from bs4 import BeautifulSoup
 from pysondb import db
-import html
 from time import sleep
 
 class NotFoundPlayer(Exception):  # Исключение о том, что игрок не был найден
