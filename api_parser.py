@@ -4,6 +4,7 @@ import json
 import xlsxwriter
 from bs4 import BeautifulSoup
 from pysondb import db
+import html
 from time import sleep
 
 class NotFoundPlayer(Exception):  # Исключение о том, что игрок не был найден
@@ -13,9 +14,9 @@ class NotFoundPlayer(Exception):  # Исключение о том, что иг�
 def driverRun(url=""):
     try:
         user_agent = {'User-agent': 'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36'}
-        response = requests.get(url, headers = user_agent)
-        codeOfPage = response.text
-        print(codeOfPage)
+        r = requests.get(url, headers = user_agent)
+        codeOfPage = html.unescape(r.text)
+        print(codeOfPage[:100])
         soup = BeautifulSoup(codeOfPage, 'html.parser')
         some = soup.find("pre").text
         return some
