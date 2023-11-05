@@ -413,10 +413,10 @@ class PopupException(QDialog):
 
     def setupUi(self, Form):
         Form.setObjectName("Error")
-        Form.resize(430, 140)
+        Form.resize(570, 140)
         Form.setStyleSheet("background-color: rgb(240,255,255);")
         self.pushButton = QtWidgets.QPushButton(Form)
-        self.pushButton.setGeometry(QtCore.QRect(275, 90, 130, 30))
+        self.pushButton.setGeometry(QtCore.QRect(415, 90, 130, 30))
         self.pushButton.setStyleSheet("background: autoFill;\n"
                                       "background-color: rgb(1, 74, 88);\n"
                                       "color: rgb(255, 255, 255);\n"
@@ -425,7 +425,7 @@ class PopupException(QDialog):
                                       "border-radius: 15px;")
         self.pushButton.setObjectName("pushButton")
         self.label = QtWidgets.QLabel(Form)
-        self.label.setGeometry(QtCore.QRect(20, 30, 391, 41))
+        self.label.setGeometry(QtCore.QRect(0, 30, 570, 41))
         self.label.setStyleSheet("font: 75 14pt \"Arial\";\n"
                                  "background: transparent;\n"
                                  "color: rgb(1, 74, 88);")
@@ -781,7 +781,8 @@ class Ui_MainWindow(QMainWindow):
         self.checkBox_2.setChecked(not self.checkBox_2.isChecked())
 
     def show_popup(self):
-        msg = PopupException("Не удалось найти игрока с кодом: ", id=self.lineEdit.text())
+        idtext = self.lineEdit.text() or "000-000-000"
+        msg = PopupException("Не удалось найти игрока с кодом ", id=idtext)
         msg.setupUi(msg)
         msg.exec_()
 
