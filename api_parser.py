@@ -5,14 +5,16 @@ import xlsxwriter
 from pysondb import db
 from time import sleep
 
+
 class NotFoundPlayer(Exception):  # Исключение о том, что игрок не был найден
     pass
 
 
 def driverRun(url=""):
     try:
-        user_agent = {'User-agent': 'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36'}
-        return requests.get(url, headers = user_agent).text
+        user_agent = {
+            'User-agent': 'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36'}
+        return requests.get(url, headers=user_agent).text
     except Exception as ex:
         print(ex)
         return None
@@ -23,7 +25,11 @@ def getJsonInfoOfPlayer(id=0):  # Запрос информации об игр�
         a = db.getDb("db_url.json")
         jsonReqPlayer = json.loads(driverRun(a.getByQuery({"name": "api"})[0]["url"] +
                                              a.getByQuery({"name": "player"})[0]["url"] + str(id)))
-        return jsonReqPlayer
+        jsonNotFoundPlayer = json.loads("""{"detail":"Not found."}""")
+        if jsonReqPlayer == jsonNotFoundPlayer:
+            return False
+        else:
+            return jsonReqPlayer
     except:
         return None
 
@@ -296,7 +302,7 @@ def arrOfUnitsToDict(units=[]):  # Массив персонажей перед�
 
 def getInfoFromAPI(id=0, needGuild=False, pathForSave=""):  # Основная функция
     jsonPlayerInfo = getJsonInfoOfPlayer(id=id)
-    if jsonPlayerInfo != None:
+    if jsonPlayerInfo:
         dictOfPlayers = {}
         if needGuild:
             allyCodes = []
@@ -316,8 +322,10 @@ def getInfoFromAPI(id=0, needGuild=False, pathForSave=""):  # Основная �
         dictOfPlayers = sortDictByGalacticPower(dictPlayers=dictOfPlayers)
         writeDataIntoExcelTable(dictOfPlayers=dictOfPlayers, path=pathForSave)
         return 0
-    else:
+    elif jsonPlayerInfo != None:
         raise NotFoundPlayer("Мы не смогли найти игрока")
+    else:
+        raise Exception
 
 
 def sortDictByGalacticPower(dictPlayers={}):

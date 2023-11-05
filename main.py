@@ -1,6 +1,5 @@
 from gui import *
-from api_parser import getInfoFromAPI
-from api_parser import NotFoundPlayer
+from api_parser import getInfoFromAPI, NotFoundPlayer
 import threading
 import sys
 import os
@@ -9,7 +8,7 @@ import os
 class ParserThread(threading.Thread):
     def __init__(self, id, needGuild, pathForSave, mainWindow):
         super().__init__()
-        self.PlayerId = id
+        self.PlayerId = id or "000000000"
         self.PlayerNeedGuild = needGuild
         self.PlayerPathForSave = pathForSave
         self.window = mainWindow
