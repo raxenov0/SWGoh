@@ -47,19 +47,32 @@ class Ui_Dialog(QDialog):
         items = [i["name"] for i in a.getByQuery({"type": "unit"})]
         return items
 
+    @staticmethod
+    def getBoolExt():
+        a = db.getDb("db_config.json")
+        req = a.getByQuery({"type": "extension"})
+        ext = ""
+        if req:
+            ext = req[0]["name"]
+
+        if ext == "html":
+            return True
+        else:
+            return False
+
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(587, 407)
-        Dialog.setMinimumSize(QtCore.QSize(587, 407))
-        Dialog.setMaximumSize(QtCore.QSize(587, 407))
+        Dialog.resize(587, 420)
+        Dialog.setMinimumSize(QtCore.QSize(587, 420))
+        Dialog.setMaximumSize(QtCore.QSize(587, 420))
         Dialog.setStyleSheet("#centralwidget {\n"
                              "    background-color: rgb(240,255,255);\n"
                              "}")
         self.centralwidget = QtWidgets.QWidget(Dialog)
-        self.centralwidget.setGeometry(QtCore.QRect(0, 0, 587, 407))
+        self.centralwidget.setGeometry(QtCore.QRect(0, 0, 587, 420))
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_3.setGeometry(QtCore.QRect(20, 340, 120, 46))
+        self.pushButton_3.setGeometry(QtCore.QRect(20, 355, 120, 46))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(12)
@@ -80,7 +93,7 @@ class Ui_Dialog(QDialog):
                                         "}")
         self.pushButton_3.setObjectName("pushButton_3")
         self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_4.setGeometry(QtCore.QRect(155, 340, 120, 46))
+        self.pushButton_4.setGeometry(QtCore.QRect(155, 355, 120, 46))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(12)
@@ -101,7 +114,7 @@ class Ui_Dialog(QDialog):
                                         "}")
         self.pushButton_4.setObjectName("pushButton_4")
         self.listWidget = QtWidgets.QListWidget(self.centralwidget)
-        self.listWidget.setGeometry(QtCore.QRect(20, 50, 551, 231))
+        self.listWidget.setGeometry(QtCore.QRect(20, 50, 551, 201))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.listWidget.setFont(font)
@@ -134,7 +147,7 @@ class Ui_Dialog(QDialog):
         self.listWidget.setObjectName("listWidget")
         self.listWidget.addItems(self.getItems())
         self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_5.setGeometry(QtCore.QRect(312, 290, 90, 31))
+        self.pushButton_5.setGeometry(QtCore.QRect(312, 270, 90, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(10)
@@ -156,7 +169,7 @@ class Ui_Dialog(QDialog):
         self.pushButton_5.setObjectName("pushButton_5")
         self.pushButton_6 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_6.setHidden(True)
-        self.pushButton_6.setGeometry(QtCore.QRect(406, 290, 90, 31))
+        self.pushButton_6.setGeometry(QtCore.QRect(406, 270, 90, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(10)
@@ -178,7 +191,7 @@ class Ui_Dialog(QDialog):
         self.pushButton_6.setObjectName("pushButton_6")
         self.pushButton_7 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_7.setHidden(True)
-        self.pushButton_7.setGeometry(QtCore.QRect(500, 290, 35, 31))
+        self.pushButton_7.setGeometry(QtCore.QRect(500, 270, 35, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(10)
@@ -203,7 +216,7 @@ class Ui_Dialog(QDialog):
         self.pushButton_7.setObjectName("pushButton_7")
         self.pushButton_8 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_8.setHidden(True)
-        self.pushButton_8.setGeometry(QtCore.QRect(536, 290, 35, 31))
+        self.pushButton_8.setGeometry(QtCore.QRect(536, 270, 35, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(10)
@@ -239,8 +252,33 @@ class Ui_Dialog(QDialog):
                                  "font: 75 12pt \"Arial\";\n"
                                  "color: rgb(0, 59, 70);")
         self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        self.label_2.setGeometry(QtCore.QRect(20, 312, 261, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_2.setFont(font)
+        self.label_2.setStyleSheet("background: transparent;\n"
+                                   "font: 75 12pt \"Arial\";\n"
+                                   "color: rgb(0, 59, 70);")
+        self.label_2.setObjectName("label_2")
+        self.label_3 = QtWidgets.QLabel(self.centralwidget)
+        self.label_3.setGeometry(QtCore.QRect(295, 312, 51, 31))
+        self.label_3.setStyleSheet("background: transparent;\n"
+                                   "font: 75 12pt \"Arial\";\n"
+                                   "color: rgb(0, 59, 70);")
+        self.label_3.setObjectName("label_3")
+        self.label_4 = QtWidgets.QLabel(self.centralwidget)
+        self.label_4.setGeometry(QtCore.QRect(413, 312, 41, 31))
+        self.label_4.setStyleSheet("background: transparent;\n"
+                                   "font: 75 12pt \"Arial\";\n"
+                                   "color: rgb(0, 59, 70);")
+        self.label_4.setObjectName("label_4")
         self.lineEdit = QLineEdit(self.centralwidget)
-        self.lineEdit.setGeometry(QtCore.QRect(20, 290, 285, 30))
+        self.lineEdit.setGeometry(QtCore.QRect(20, 270, 285, 30))
         self.lineEdit.setStyleSheet("border-style: outset;\n"
                                     "border-width: 2px;\n"
                                     "border-radius: 8px;\n"
@@ -249,6 +287,23 @@ class Ui_Dialog(QDialog):
                                     "font-size: 18px;")
         self.lineEdit.setClearButtonEnabled(True)
         self.lineEdit.setObjectName("lineEdit")
+        self.checkBox = QtWidgets.QCheckBox(self.centralwidget)
+        self.checkBox.setGeometry(QtCore.QRect(350, 303, 57, 50))
+        self.checkBox.setStyleSheet("QCheckBox::indicator {\n"
+                                    "    width: 50px;\n"
+                                    "    height: 50px;\n"
+                                    "}\n"
+                                    "\n"
+                                    "QCheckBox::indicator::checked {\n"
+                                    "    image: url(:/resources/image/switch-on.png);\n"
+                                    "}\n"
+                                    "\n"
+                                    "QCheckBox::indicator::unchecked {\n"
+                                    "    image: url(:/resources/image/switch-off.png);\n"
+                                    "}")
+        self.checkBox.setText("")
+        self.checkBox.setChecked(self.getBoolExt())
+        self.checkBox.setObjectName("checkBox")
 
         self.retranslateUi(Dialog)
         self.checkActions()
@@ -258,6 +313,9 @@ class Ui_Dialog(QDialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Обновление конфигурации"))
         self.label.setText(_translate("Dialog", "Данные отображаются по следующим персонажам:"))
+        self.label_2.setText(_translate("Dialog", "Формат сохранения данных:"))
+        self.label_3.setText(_translate("Dialog", "excel"))
+        self.label_4.setText(_translate("Dialog", "html"))
         self.lineEdit.setPlaceholderText(_translate("Dialog", "APIИмя:ПользовательскоеИмя"))
         self.pushButton_5.setText(_translate("Dialog", "Добавить"))
         self.pushButton_6.setText(_translate("Dialog", "Удалить"))
@@ -281,6 +339,14 @@ class Ui_Dialog(QDialog):
         a.deleteAll()
 
         items = []
+
+        if self.checkBox.isChecked():
+            ext = "html"
+        else:
+            ext = "excel"
+
+        items.append({"name": ext, "type": "extension"})
+
         for i in range(self.listWidget.count()):
             items.append({"name": self.listWidget.item(i).text(), "type": "unit"})
 

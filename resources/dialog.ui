@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>587</width>
-    <height>407</height>
+    <height>420</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>587</width>
-    <height>407</height>
+    <height>420</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>587</width>
-    <height>407</height>
+    <height>420</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -36,7 +36,7 @@
      <x>0</x>
      <y>0</y>
      <width>587</width>
-     <height>407</height>
+     <height>420</height>
     </rect>
    </property>
    <widget class="QLabel" name="label">
@@ -70,7 +70,7 @@ color: rgb(0, 59, 70);</string>
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>290</y>
+      <y>270</y>
       <width>285</width>
       <height>30</height>
      </rect>
@@ -96,7 +96,7 @@ font-size: 18px;</string>
       <x>20</x>
       <y>50</y>
       <width>551</width>
-      <height>231</height>
+      <height>201</height>
      </rect>
     </property>
     <property name="font">
@@ -214,7 +214,7 @@ QListWidget::item:selected {
     <property name="geometry">
      <rect>
       <x>312</x>
-      <y>290</y>
+      <y>270</y>
       <width>90</width>
       <height>31</height>
      </rect>
@@ -252,7 +252,7 @@ QPushButton::pressed {
     <property name="geometry">
      <rect>
       <x>406</x>
-      <y>290</y>
+      <y>270</y>
       <width>90</width>
       <height>31</height>
      </rect>
@@ -287,7 +287,7 @@ QPushButton::pressed {
     <property name="geometry">
      <rect>
       <x>500</x>
-      <y>290</y>
+      <y>270</y>
       <width>35</width>
       <height>31</height>
      </rect>
@@ -325,7 +325,7 @@ QPushButton:disabled {
     <property name="geometry">
      <rect>
       <x>536</x>
-      <y>290</y>
+      <y>270</y>
       <width>35</width>
       <height>31</height>
      </rect>
@@ -363,7 +363,7 @@ QPushButton:disabled {
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>340</y>
+      <y>355</y>
       <width>120</width>
       <height>46</height>
      </rect>
@@ -398,7 +398,7 @@ QPushButton::pressed {
     <property name="geometry">
      <rect>
       <x>155</x>
-      <y>340</y>
+      <y>355</y>
       <width>120</width>
       <height>46</height>
      </rect>
@@ -429,6 +429,96 @@ QPushButton::pressed {
      <string>Отмена</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>312</y>
+      <width>261</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <weight>9</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+font: 75 12pt &quot;Arial&quot;;
+color: rgb(0, 59, 70);</string>
+    </property>
+    <property name="text">
+     <string>Формат сохранения данных:</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>303</y>
+      <width>57</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QCheckBox::indicator {
+	width: 50px;
+	height: 50px;
+}
+
+QCheckBox::indicator::checked {
+	image: url(:/resources/image/switch-on.png);
+}
+
+QCheckBox::indicator::unchecked {
+	image: url(:/resources/image/switch-off.png);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>295</x>
+      <y>312</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+font: 75 12pt &quot;Arial&quot;;
+color: rgb(0, 59, 70);</string>
+    </property>
+    <property name="text">
+     <string>excel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>413</x>
+      <y>312</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+font: 75 12pt &quot;Arial&quot;;
+color: rgb(0, 59, 70);</string>
+    </property>
+    <property name="text">
+     <string>html</string>
+    </property>
+   </widget>
    <zorder>pushButton_7</zorder>
    <zorder>label</zorder>
    <zorder>lineEdit</zorder>
@@ -438,8 +528,14 @@ QPushButton::pressed {
    <zorder>pushButton_8</zorder>
    <zorder>pushButton_3</zorder>
    <zorder>pushButton_4</zorder>
+   <zorder>label_2</zorder>
+   <zorder>checkBox</zorder>
+   <zorder>label_3</zorder>
+   <zorder>label_4</zorder>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>
