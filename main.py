@@ -20,6 +20,7 @@ class ParserThread(threading.Thread):
             getInfoFromAPI(
                 id=self.PlayerId, needGuild=self.PlayerNeedGuild, pathForSave=self.PlayerPathForSave)
             killResources(ui=self.window)
+            # ui.show_popup_success()
             time.sleep(3)
             self.window.progressBar.setValue(100)
             time.sleep(5)

@@ -65,6 +65,9 @@ class Ui_Dialog(QDialog):
         Dialog.resize(587, 420)
         Dialog.setMinimumSize(QtCore.QSize(587, 420))
         Dialog.setMaximumSize(QtCore.QSize(587, 420))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/resources/image/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        Dialog.setWindowIcon(icon)
         Dialog.setStyleSheet("#centralwidget {\n"
                              "    background-color: rgb(240,255,255);\n"
                              "}")
@@ -414,6 +417,11 @@ class PopupException(QDialog):
     def setupUi(self, Form):
         Form.setObjectName("Error")
         Form.resize(570, 140)
+        Form.setMinimumSize(QtCore.QSize(570, 140))
+        Form.setMaximumSize(QtCore.QSize(570, 140))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/resources/image/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        Form.setWindowIcon(icon)
         Form.setStyleSheet("background-color: rgb(240,255,255);")
         self.pushButton = QtWidgets.QPushButton(Form)
         self.pushButton.setGeometry(QtCore.QRect(415, 90, 130, 30))
@@ -492,6 +500,9 @@ class Ui_MainWindow(QMainWindow):
         MainWindow.resize(685, 500)
         MainWindow.setMinimumSize(QtCore.QSize(685, 500))
         MainWindow.setMaximumSize(QtCore.QSize(685, 500))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/resources/image/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet("#centralwidget {\n"
                                  "    background-image: url(:/resources/image/background.png);\n"
                                  "}")
@@ -804,7 +815,6 @@ if __name__ == "__main__":
     myappid = 'mycompany.myproduct.subproduct.version'  # arbitrary string
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
     app = QtWidgets.QApplication(sys.argv)
-    app.setWindowIcon(QtGui.QIcon('ico.ico'))
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
