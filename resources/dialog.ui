@@ -246,9 +246,6 @@ QPushButton::pressed {
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_6">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
     <property name="geometry">
      <rect>
       <x>406</x>
@@ -277,6 +274,9 @@ border-radius: 10px;
 }
 QPushButton::pressed {
 	background-color: rgb(97, 164, 173);
+}
+QPushButton:disabled {
+	background-color: rgba(1, 74, 88, 150);
 }</string>
     </property>
     <property name="text">
@@ -364,8 +364,8 @@ QPushButton:disabled {
      <rect>
       <x>20</x>
       <y>355</y>
-      <width>120</width>
-      <height>50</height>
+      <width>125</width>
+      <height>55</height>
      </rect>
     </property>
     <property name="font">
@@ -384,7 +384,7 @@ background-color: rgb(1, 74, 88);
 color: rgb(255, 255, 255);
 border-style: outset;
 border-width: 2px;
-border-radius: 21px;
+border-radius: 18px;
 }
 QPushButton::pressed {
 	background-color: rgb(97, 164, 173);
@@ -403,8 +403,8 @@ QPushButton:disabled {
      <rect>
       <x>155</x>
       <y>355</y>
-      <width>120</width>
-      <height>50</height>
+      <width>125</width>
+      <height>55</height>
      </rect>
     </property>
     <property name="font">
@@ -423,7 +423,7 @@ background-color: rgb(1, 74, 88);
 color: rgb(255, 255, 255);
 border-style: outset;
 border-width: 2px;
-border-radius: 21px;
+border-radius: 18px;
 }
 QPushButton::pressed {
 	background-color: rgb(97, 164, 173);
@@ -534,7 +534,7 @@ color: rgb(0, 59, 70);</string>
     <property name="geometry">
      <rect>
       <x>422</x>
-      <y>354</y>
+      <y>340</y>
       <width>20</width>
       <height>46</height>
      </rect>
@@ -568,7 +568,7 @@ QPushButton:disabled {
     <property name="geometry">
      <rect>
       <x>551</x>
-      <y>354</y>
+      <y>340</y>
       <width>20</width>
       <height>46</height>
      </rect>
@@ -602,7 +602,7 @@ QPushButton:disabled {
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>363</y>
+      <y>349</y>
       <width>118</width>
       <height>31</height>
      </rect>
@@ -626,6 +626,82 @@ color: rgb(0, 59, 70);</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_11">
+    <property name="geometry">
+     <rect>
+      <x>422</x>
+      <y>383</y>
+      <width>70</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+background: autoFill;
+background-color: rgb(255, 255, 255);
+color: rgb(1, 74, 88);
+border-style: outset;
+border-width: 1px;
+border-radius: 5px;
+}
+QPushButton::pressed {
+	background-color: rgb(227, 227, 227);
+}
+QPushButton:disabled {
+	background-color: rgb(227, 227, 227);
+}</string>
+    </property>
+    <property name="text">
+     <string>Удалить</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_12">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>383</y>
+      <width>70</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>9</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+background: autoFill;
+background-color: rgb(255, 255, 255);
+color: rgb(1, 74, 88);
+border-style: outset;
+border-width: 1px;
+border-radius: 5px;
+}
+QPushButton::pressed {
+	background-color: rgb(227, 227, 227);
+}
+QPushButton:disabled {
+	background-color: rgb(227, 227, 227);
+}</string>
+    </property>
+    <property name="text">
+     <string>Создать</string>
+    </property>
+   </widget>
    <zorder>pushButton_7</zorder>
    <zorder>label</zorder>
    <zorder>lineEdit</zorder>
@@ -642,6 +718,8 @@ color: rgb(0, 59, 70);</string>
    <zorder>pushButton_9</zorder>
    <zorder>pushButton_10</zorder>
    <zorder>label_5</zorder>
+   <zorder>pushButton_11</zorder>
+   <zorder>pushButton_12</zorder>
   </widget>
  </widget>
  <resources>
