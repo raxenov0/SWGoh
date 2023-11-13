@@ -4,6 +4,15 @@ import json
 import xlsxwriter
 from pysondb import db
 from time import sleep
+from transliterate import translit
+import xlsx2html
+
+
+def has_russian_letters(word):
+    for letter in word:
+        if 'а' <= letter <= 'я' or 'А' <= letter <= 'Я':
+            return True
+    return False
 
 
 class NotFoundPlayer(Exception):  # Исключение о том, что игрок не был найден
@@ -48,7 +57,8 @@ def getInfoAboutGuild(id=''):  # Запрос информации о гильд
 def getInfoAboutAllPlayers(allyCodes=[]):
     dictOfPlayers = {}
     fixedAllyCodes = []
-
+    a = db.getDb("db_config.json")
+    doc_type = a.getByQuery({"type": "extension"})[0]["data"]
     for code in allyCodes:
         if str(code) == "None":
             continue
@@ -59,8 +69,13 @@ def getInfoAboutAllPlayers(allyCodes=[]):
         jsonReqPlayer = getJsonInfoOfPlayer(id=allyCode)
         dictWithGalacticPowerAndUnits['galactic_power'] = jsonReqPlayer['data']['galactic_power']
         dictWithGalacticPowerAndUnits['units'] = jsonReqPlayer['units']
-        dictOfPlayers[jsonReqPlayer['data']['name']
-        ] = dictWithGalacticPowerAndUnits
+
+        if has_russian_letters(jsonReqPlayer['data']['name']) and doc_type == "html":
+            dictOfPlayers[translit(jsonReqPlayer['data']['name'], language_code='ru', reversed=True)
+            ] = dictWithGalacticPowerAndUnits
+        else:
+            dictOfPlayers[jsonReqPlayer['data']['name']
+            ] = dictWithGalacticPowerAndUnits
     return dictOfPlayers
 
 
@@ -112,6 +127,7 @@ def getValidString(stringConfig=""):
 def writeDataIntoExcelTable(dictOfPlayers={}, path=""):
     a = db.getDb("db_config.json")
     req = a.getByQuery({"type": "presets"})
+    # print(dictOfPlayers.keys())
     presets = []
     if req:
         presets = req[0]["data"]
@@ -125,12 +141,19 @@ def writeDataIntoExcelTable(dictOfPlayers={}, path=""):
 
         unitsTuple = [unit["name"] for unit in all_units if unit["type"] == "unit"]
         # Create a workbook and add a worksheet.
-        workbook = xlsxwriter.Workbook(path + 'statistics_' + datetime.now().strftime("%d_%m_%Y_%H_%M_%S") + '.xlsx')
+        full_path = path + 'statistics_' + datetime.now().strftime("%d_%m_%Y_%H_%M_%S")
+        workbook = xlsxwriter.Workbook(full_path + '.xlsx')
         writeDataToSheet(workbook=workbook, dictOfPlayers=dictOfPlayers, unitsTuple=unitsTuple)
         arrayUnits = getAllUnitsFromGame()
         if arrayUnits:
             writeDataToSheet(workbook=workbook, dictOfPlayers=dictOfPlayers, unitsTuple=arrayUnits)
         workbook.close()
+        doc_type = a.getByQuery({"type": "extension"})[0]["data"]
+        print(1)
+        if doc_type == 'html':
+            print(2)
+            xlsx2html.xlsx2html(full_path+'.xlsx', full_path+'fdfsd.html')
+            print(3)
     else:
         raise Exception()
 
@@ -209,12 +232,16 @@ def writeDataToSheet(workbook, dictOfPlayers, unitsTuple):
     col += 1
     worksheet.write(row, col, 'Galactic power', cell_format_style)
     col += 1
+    a = db.getDb("db_config.json")
+    doc_type = a.getByQuery({"type": "extension"})[0]["data"]
     for unit in unitsTuple:
         unit = unit.split(':')
-        if len(unit) > 1:
-            worksheet.write(row, col, unit[1], cell_format_style)
-        else:
+        if len(unit) <= 1:
             worksheet.write(row, col, unit[0], cell_format_style)
+        else:
+            if has_russian_letters(unit[1]) and doc_type == 'html':
+                unit[1] = translit(unit[1], language_code='ru', reversed=True)
+            worksheet.write(row, col, unit[1], cell_format_style)
         col += 1
 
     row += 1
@@ -265,7 +292,10 @@ def writeDataToSheet(workbook, dictOfPlayers, unitsTuple):
                                     getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit),
                                     cell_format_pink)
             except:
-                worksheet.write(row, col, 'Нет', cell_format_pink)
+                if doc_type == 'html':
+                    worksheet.write(row, col, 'No', cell_format_pink)
+                else:
+                    worksheet.write(row, col, 'Нет', cell_format_pink)
             col += 1
         row += 1
         col = 0
@@ -273,7 +303,10 @@ def writeDataToSheet(workbook, dictOfPlayers, unitsTuple):
         worksheet.set_column('B:B', maxLengthNickname)
     else:
         worksheet.set_column('B:B', maxLengthNickname - 2)
-    worksheet.write(row, col, 'Лег', cell_format_red)
+    if doc_type == 'html':
+        worksheet.write(row, col, 'Leg', cell_format_red)
+    else:
+        worksheet.write(row, col, 'Лег', cell_format_red)
     worksheet.write(row, col + 1, legendCount, cell_format_red)
     worksheet.write_formula(row, col + 2, '=sum(C2:C%s' % str(len(dictOfPlayers) + 1) + ')', cell_format_red)
     col += 3
@@ -331,6 +364,7 @@ def getInfoFromAPI(id=0, needGuild=False, pathForSave=""):  # Основная �
                 dictOfPlayers[key]['units'])
         dictOfPlayers = sortDictByGalacticPower(dictPlayers=dictOfPlayers)
         writeDataIntoExcelTable(dictOfPlayers=dictOfPlayers, path=pathForSave)
+        print(4)
         return 0
     elif jsonPlayerInfo != None:
         raise NotFoundPlayer("Мы не смогли найти игрока")
