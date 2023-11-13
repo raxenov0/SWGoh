@@ -25,6 +25,10 @@
   <property name="windowTitle">
    <string>GH</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="res.qrc">
+    <normaloff>:/resources/image/icon.png</normaloff>:/resources/image/icon.png</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">#centralwidget {
 	background-image: url(:/resources/image/background.png);

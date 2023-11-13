@@ -111,18 +111,28 @@ def getValidString(stringConfig=""):
 # Записываем все данные в Excel
 def writeDataIntoExcelTable(dictOfPlayers={}, path=""):
     a = db.getDb("db_config.json")
-    all_units = a.getAll()
-    unitsTuple = []
-    for unit in all_units:
-        unitsTuple.append(unit["name"])
+    req = a.getByQuery({"type": "presets"})
+    presets = []
+    if req:
+        presets = req[0]["data"]
 
-    # Create a workbook and add a worksheet.
-    workbook = xlsxwriter.Workbook(path + 'statistics_' + datetime.now().strftime("%d_%m_%Y_%H_%M_%S") + '.xlsx')
-    writeDataToSheet(workbook=workbook, dictOfPlayers=dictOfPlayers, unitsTuple=unitsTuple)
-    arrayUnits = getAllUnitsFromGame()
-    if arrayUnits:
-        writeDataToSheet(workbook=workbook, dictOfPlayers=dictOfPlayers, unitsTuple=arrayUnits)
-    workbook.close()
+    if presets:
+        active = next((item for item in presets if item["active"]), None)
+        if active:
+            all_units = active["data"]
+        else:
+            all_units = presets[0]["data"]
+
+        unitsTuple = [unit["name"] for unit in all_units if unit["type"] == "unit"]
+        # Create a workbook and add a worksheet.
+        workbook = xlsxwriter.Workbook(path + 'statistics_' + datetime.now().strftime("%d_%m_%Y_%H_%M_%S") + '.xlsx')
+        writeDataToSheet(workbook=workbook, dictOfPlayers=dictOfPlayers, unitsTuple=unitsTuple)
+        arrayUnits = getAllUnitsFromGame()
+        if arrayUnits:
+            writeDataToSheet(workbook=workbook, dictOfPlayers=dictOfPlayers, unitsTuple=arrayUnits)
+        workbook.close()
+    else:
+        raise Exception()
 
 
 def writeDataToSheet(workbook, dictOfPlayers, unitsTuple):

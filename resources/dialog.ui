@@ -365,13 +365,13 @@ QPushButton:disabled {
       <x>20</x>
       <y>355</y>
       <width>120</width>
-      <height>46</height>
+      <height>50</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Arial</family>
-      <pointsize>12</pointsize>
+      <pointsize>11</pointsize>
       <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
@@ -388,10 +388,14 @@ border-radius: 21px;
 }
 QPushButton::pressed {
 	background-color: rgb(97, 164, 173);
+}
+QPushButton:disabled {
+	background-color: rgba(1, 74, 88, 150);
 }</string>
     </property>
     <property name="text">
-     <string>Сохранить</string>
+     <string>Выбрать
+вкладку</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_4">
@@ -400,13 +404,13 @@ QPushButton::pressed {
       <x>155</x>
       <y>355</y>
       <width>120</width>
-      <height>46</height>
+      <height>50</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Arial</family>
-      <pointsize>12</pointsize>
+      <pointsize>11</pointsize>
       <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
@@ -423,10 +427,14 @@ border-radius: 21px;
 }
 QPushButton::pressed {
 	background-color: rgb(97, 164, 173);
+}
+QPushButton:disabled {
+	background-color: rgba(1, 74, 88, 150);
 }</string>
     </property>
     <property name="text">
-     <string>Отмена</string>
+     <string>Принять
+изменения</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -519,6 +527,105 @@ color: rgb(0, 59, 70);</string>
      <string>html</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_9">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>422</x>
+      <y>354</y>
+      <width>20</width>
+      <height>46</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>15</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+background-color: transparent;
+color: rgb(1, 74, 88);
+}
+QPushButton::pressed {
+	color: rgb(97, 164, 173);
+}
+QPushButton:disabled {
+	color: rgba(1, 74, 88, 150);
+}</string>
+    </property>
+    <property name="text">
+     <string>❮</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_10">
+    <property name="geometry">
+     <rect>
+      <x>551</x>
+      <y>354</y>
+      <width>20</width>
+      <height>46</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>15</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+background-color: transparent;
+color: rgb(1, 74, 88);
+}
+QPushButton::pressed {
+	color: rgb(97, 164, 173);
+}
+QPushButton:disabled {
+	color: rgba(1, 74, 88, 150);
+}</string>
+    </property>
+    <property name="text">
+     <string>❯</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>363</y>
+      <width>118</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+color: rgb(0, 59, 70);</string>
+    </property>
+    <property name="text">
+     <string>Вкладка 1</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
    <zorder>pushButton_7</zorder>
    <zorder>label</zorder>
    <zorder>lineEdit</zorder>
@@ -532,6 +639,9 @@ color: rgb(0, 59, 70);</string>
    <zorder>checkBox</zorder>
    <zorder>label_3</zorder>
    <zorder>label_4</zorder>
+   <zorder>pushButton_9</zorder>
+   <zorder>pushButton_10</zorder>
+   <zorder>label_5</zorder>
   </widget>
  </widget>
  <resources>

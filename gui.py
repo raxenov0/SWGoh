@@ -42,9 +42,34 @@ class MyThread(QThread):
 
 class Ui_Dialog(QDialog):
     @staticmethod
-    def getItems():
+    def getNumberPreset():
         a = db.getDb("db_config.json")
-        items = [i["name"] for i in a.getByQuery({"type": "unit"})]
+        req = a.getByQuery({"type": "presets"})
+        presets = []
+        if req:
+            presets = req[0]["data"]
+
+        if presets:
+            active = next((item for item in presets if item["active"]), None)
+            if active:
+                return {"active": active["number"], "count": len(presets)}
+        return {"active": 1, "count": 1}
+
+    @staticmethod
+    def getItems(num: int):
+        a = db.getDb("db_config.json")
+        req = a.getByQuery({"type": "presets"})
+        presets = []
+        if req:
+            presets = req[0]["data"]
+
+        items = []
+        if presets:
+            preset = next((item for item in presets if item["number"] == num), None)
+            if preset:
+                data = preset["data"]
+                items = [item["name"] for item in data if item["type"] == "unit"]
+
         return items
 
     @staticmethod
@@ -53,18 +78,28 @@ class Ui_Dialog(QDialog):
         req = a.getByQuery({"type": "extension"})
         ext = ""
         if req:
-            ext = req[0]["name"]
+            ext = req[0]["data"]
 
         if ext == "html":
             return True
         else:
             return False
 
+    def __init__(self):
+        super().__init__()
+        data = self.getNumberPreset()
+        self.numPreset = data["active"]
+        self.numActivePreset = data["active"]
+        self.countPresets = data["count"]
+
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(587, 420)
         Dialog.setMinimumSize(QtCore.QSize(587, 420))
         Dialog.setMaximumSize(QtCore.QSize(587, 420))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/resources/image/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        Dialog.setWindowIcon(icon)
         Dialog.setStyleSheet("#centralwidget {\n"
                              "    background-color: rgb(240,255,255);\n"
                              "}")
@@ -72,10 +107,10 @@ class Ui_Dialog(QDialog):
         self.centralwidget.setGeometry(QtCore.QRect(0, 0, 587, 420))
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_3.setGeometry(QtCore.QRect(20, 355, 120, 46))
+        self.pushButton_3.setGeometry(QtCore.QRect(20, 355, 120, 50))
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(12)
+        font.setPointSize(11)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
@@ -90,13 +125,16 @@ class Ui_Dialog(QDialog):
                                         "}\n"
                                         "QPushButton::pressed {\n"
                                         "    background-color: rgb(97, 164, 173);\n"
+                                        "}\n"
+                                        "QPushButton:disabled {\n"
+                                        "    background-color: rgba(1, 74, 88, 150);\n"
                                         "}")
         self.pushButton_3.setObjectName("pushButton_3")
         self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_4.setGeometry(QtCore.QRect(155, 355, 120, 46))
+        self.pushButton_4.setGeometry(QtCore.QRect(155, 355, 120, 50))
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(12)
+        font.setPointSize(11)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
@@ -111,6 +149,9 @@ class Ui_Dialog(QDialog):
                                         "}\n"
                                         "QPushButton::pressed {\n"
                                         "    background-color: rgb(97, 164, 173);\n"
+                                        "}\n"
+                                        "QPushButton:disabled {\n"
+                                        "    background-color: rgba(1, 74, 88, 150);\n"
                                         "}")
         self.pushButton_4.setObjectName("pushButton_4")
         self.listWidget = QtWidgets.QListWidget(self.centralwidget)
@@ -145,7 +186,6 @@ class Ui_Dialog(QDialog):
                                       "}")
         self.listWidget.setDragDropMode(QtWidgets.QAbstractItemView.InternalMove)
         self.listWidget.setObjectName("listWidget")
-        self.listWidget.addItems(self.getItems())
         self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_5.setGeometry(QtCore.QRect(312, 270, 90, 31))
         font = QtGui.QFont()
@@ -239,6 +279,46 @@ class Ui_Dialog(QDialog):
                                         "background-color: rgba(1, 74, 88, 150);\n"
                                         "}")
         self.pushButton_8.setObjectName("pushButton_8")
+        self.pushButton_9 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_9.setGeometry(QtCore.QRect(422, 354, 20, 46))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(15)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.pushButton_9.setFont(font)
+        self.pushButton_9.setStyleSheet("QPushButton {\n"
+                                        "background-color: transparent;\n"
+                                        "color: rgb(1, 74, 88);\n"
+                                        "}\n"
+                                        "QPushButton::pressed {\n"
+                                        "    color: rgb(97, 164, 173);\n"
+                                        "}\n"
+                                        "QPushButton:disabled {\n"
+                                        "    color: rgba(1, 74, 88, 150);\n"
+                                        "}")
+        self.pushButton_9.setObjectName("pushButton_9")
+        self.pushButton_10 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_10.setGeometry(QtCore.QRect(551, 354, 20, 46))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(15)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.pushButton_10.setFont(font)
+        self.pushButton_10.setStyleSheet("QPushButton {\n"
+                                         "background-color: transparent;\n"
+                                         "color: rgb(1, 74, 88);\n"
+                                         "}\n"
+                                         "QPushButton::pressed {\n"
+                                         "    color: rgb(97, 164, 173);\n"
+                                         "}\n"
+                                         "QPushButton:disabled {\n"
+                                         "    color: rgba(1, 74, 88, 150);\n"
+                                         "}")
+        self.pushButton_10.setObjectName("pushButton_10")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(20, 10, 471, 31))
         font = QtGui.QFont()
@@ -277,6 +357,17 @@ class Ui_Dialog(QDialog):
                                    "font: 75 12pt \"Arial\";\n"
                                    "color: rgb(0, 59, 70);")
         self.label_4.setObjectName("label_4")
+        self.label_5 = QtWidgets.QLabel(self.centralwidget)
+        self.label_5.setGeometry(QtCore.QRect(440, 363, 118, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        font.setWeight(50)
+        self.label_5.setFont(font)
+        self.label_5.setStyleSheet("background: transparent;\n"
+                                   "color: rgb(0, 59, 70);")
+        self.label_5.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_5.setObjectName("label_5")
         self.lineEdit = QLineEdit(self.centralwidget)
         self.lineEdit.setGeometry(QtCore.QRect(20, 270, 285, 30))
         self.lineEdit.setStyleSheet("border-style: outset;\n"
@@ -302,10 +393,10 @@ class Ui_Dialog(QDialog):
                                     "    image: url(:/resources/image/switch-off.png);\n"
                                     "}")
         self.checkBox.setText("")
-        self.checkBox.setChecked(self.getBoolExt())
         self.checkBox.setObjectName("checkBox")
 
         self.retranslateUi(Dialog)
+        self.setPreset()
         self.checkActions()
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
@@ -321,37 +412,77 @@ class Ui_Dialog(QDialog):
         self.pushButton_6.setText(_translate("Dialog", "Удалить"))
         self.pushButton_7.setText(_translate("Dialog", "▲"))
         self.pushButton_8.setText(_translate("Dialog", "▼"))
-        self.pushButton_3.setText(_translate("Dialog", "Сохранить"))
-        self.pushButton_4.setText(_translate("Dialog", "Отмена"))
+        self.pushButton_3.setText(_translate("Dialog", "Выбрать\nвкладку"))
+        self.pushButton_4.setText(_translate("Dialog", "Принять\nизменения"))
+        self.pushButton_9.setText(_translate("Dialog", "❮"))
+        self.pushButton_10.setText(_translate("Dialog", "❯"))
+
+    def setPreset(self):
+        self.changePreset()
+        self.checkBox.setChecked(self.getBoolExt())
 
     def checkActions(self):
-        self.pushButton_3.clicked.connect(self.saveConfig)
-        self.pushButton_4.clicked.connect(self.close)
+        self.pushButton_3.clicked.connect(self.setActivePreset)
+        self.pushButton_4.clicked.connect(self.saveConfig)
         self.pushButton_5.clicked.connect(self.addItemInList)
         self.pushButton_6.clicked.connect(self.removeItemFromList)
         self.pushButton_7.clicked.connect(self.changeRowSelectItemUp)
         self.pushButton_8.clicked.connect(self.changeRowSelectItemDown)
+        self.pushButton_9.clicked.connect(self.changePresetPrev)
+        self.pushButton_10.clicked.connect(self.changePresetNext)
         self.lineEdit.textChanged.connect(self.removeSelectList)
         self.listWidget.currentRowChanged.connect(self.setVisibleMenuButtons)
 
     def saveConfig(self):
         a = db.getDb("db_config.json")
+        req = a.getByQuery({"type": "presets"})
+        presets = []
+        if req:
+            presets = req[0]["data"]
+
         a.deleteAll()
 
-        items = []
+        data = []
 
         if self.checkBox.isChecked():
             ext = "html"
         else:
             ext = "excel"
 
-        items.append({"name": ext, "type": "extension"})
+        data.append({"data": ext, "type": "extension"})
 
+        items = []
         for i in range(self.listWidget.count()):
             items.append({"name": self.listWidget.item(i).text(), "type": "unit"})
 
-        a.addMany(items)
-        self.close()
+        preset = next((item for item in presets if item["number"] == self.numPreset), None)
+        if preset:
+            preset["data"] = items
+        else:
+            presets.append(({"data": items, "active": True, "number": 1}))
+
+        data.append({"data": presets, "type": "presets"})
+        a.addMany(data)
+
+        self.pushButton_4.setDisabled(True)
+        self.removeSelectList()
+        if not self.pushButton_3.isEnabled():
+            self.close()
+
+    def setActivePreset(self):
+        a = db.getDb("db_config.json")
+        data = a.getAll()
+        presets = next((item for item in data if item["type"] == "presets"), None)["data"]
+        preset = next((item for item in presets if item["number"] == self.numActivePreset), None)
+        preset["active"] = False
+        preset = next((item for item in presets if item["number"] == self.numPreset), None)
+        preset["active"] = True
+        self.numActivePreset = self.numPreset
+        a.deleteAll()
+        a.addMany(data)
+        self.pushButton_3.setDisabled(True)
+        if not self.pushButton_4.isEnabled():
+            self.close()
 
     def removeSelectList(self):
         self.listWidget.setCurrentRow(-1)
@@ -403,6 +534,31 @@ class Ui_Dialog(QDialog):
         self.listWidget.insertItem(row + 1, item)
         self.listWidget.setCurrentRow(row + 1)
 
+    def changePresetPrev(self):
+        self.numPreset -= 1
+        self.changePreset()
+
+    def changePresetNext(self):
+        self.numPreset += 1
+        self.changePreset()
+
+    def changePreset(self):
+        self.pushButton_9.setDisabled(False)
+        self.pushButton_10.setDisabled(False)
+        if self.numPreset == 1:
+            self.pushButton_9.setDisabled(True)
+        if self.numPreset == self.countPresets:
+            self.pushButton_10.setDisabled(True)
+
+        if self.numPreset == self.numActivePreset:
+            self.pushButton_3.setDisabled(True)
+        else:
+            self.pushButton_3.setDisabled(False)
+
+        self.label_5.setText("Вкладка " + str(self.numPreset))
+        self.listWidget.clear()
+        self.listWidget.addItems(self.getItems(self.numPreset))
+
 
 class PopupException(QDialog):
     def __init__(self, labelText, error=True, id=None):
@@ -414,6 +570,11 @@ class PopupException(QDialog):
     def setupUi(self, Form):
         Form.setObjectName("Error")
         Form.resize(570, 140)
+        Form.setMinimumSize(QtCore.QSize(570, 140))
+        Form.setMaximumSize(QtCore.QSize(570, 140))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/resources/image/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        Form.setWindowIcon(icon)
         Form.setStyleSheet("background-color: rgb(240,255,255);")
         self.pushButton = QtWidgets.QPushButton(Form)
         self.pushButton.setGeometry(QtCore.QRect(415, 90, 130, 30))
@@ -486,12 +647,13 @@ class Ui_MainWindow(QMainWindow):
             self.setCursorPos()
 
     def setupUi(self, MainWindow):
-        a = db.getDb("db_url.json")
-
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(685, 500)
         MainWindow.setMinimumSize(QtCore.QSize(685, 500))
         MainWindow.setMaximumSize(QtCore.QSize(685, 500))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/resources/image/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet("#centralwidget {\n"
                                  "    background-image: url(:/resources/image/background.png);\n"
                                  "}")
@@ -668,7 +830,6 @@ class Ui_MainWindow(QMainWindow):
                                       "background: transparent;\n"
                                       "font-size: 20px;")
         self.lineEdit_3.setObjectName("lineEdit_3")
-        self.lineEdit_3.setText(a.getByQuery({"name": "api"})[0]["url"])
         self.checkBox = QtWidgets.QCheckBox(self.centralwidget)
         self.checkBox.setGeometry(QtCore.QRect(355, 195, 57, 50))
         self.checkBox.setStyleSheet("QCheckBox::indicator {\n"
@@ -705,6 +866,7 @@ class Ui_MainWindow(QMainWindow):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
+        self.setConfig()
         self.checkActions()
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -736,6 +898,15 @@ class Ui_MainWindow(QMainWindow):
         self.lineEdit_2.setText(os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop').replace('\\', '/'))
         self.lineEdit_3.setPlaceholderText(_translate("MainWindow", "http://"))
 
+    def setConfig(self):
+        a = db.getDb("db_url.json")
+        req = a.getByQuery({"name": "api"})
+        url = ""
+        if req:
+            url = req[0]["url"]
+
+        self.lineEdit_3.setText(url)
+
     def checkActions(self):
         self.pushButton_2.clicked.connect(self.changeDirectory)
         self.pushButton_3.clicked.connect(self.updateConfig)
@@ -755,9 +926,19 @@ class Ui_MainWindow(QMainWindow):
         url = self.lineEdit_3.text()
         if not url == "" and url[-1] != '/':
             url += '/'
-        a.updateByQuery({"name": "api"}, {"url": url})
 
-    def updateConfig(self):
+        req = a.getByQuery({"name": "api"})
+        if req:
+            a.updateByQuery({"name": "api"}, {"url": url})
+        else:
+            a.deleteAll()
+            a.add({"type": "url", "name": "api", "url": url})
+            a.add({"type": "url", "name": "player", "url": "player/"})
+            a.add({"type": "url", "name": "guild", "url": "guild-profile/"})
+            a.add({"type": "url", "name": "characters", "url": "characters/"})
+
+    @staticmethod
+    def updateConfig():
         dialog = Ui_Dialog()
         dialog.setupUi(dialog)
         dialog.exec_()
@@ -804,7 +985,6 @@ if __name__ == "__main__":
     myappid = 'mycompany.myproduct.subproduct.version'  # arbitrary string
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
     app = QtWidgets.QApplication(sys.argv)
-    app.setWindowIcon(QtGui.QIcon('ico.ico'))
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)

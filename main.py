@@ -20,6 +20,7 @@ class ParserThread(threading.Thread):
             getInfoFromAPI(
                 id=self.PlayerId, needGuild=self.PlayerNeedGuild, pathForSave=self.PlayerPathForSave)
             killResources(ui=self.window)
+            # ui.show_popup_success()
             time.sleep(3)
             self.window.progressBar.setValue(100)
             time.sleep(5)
@@ -92,6 +93,19 @@ def swCall():
 def main():
     import sys
     import ctypes
+    import json
+    with open('db_url.json') as input:
+        data = json.load(input)
+    if 'data' not in data:
+        data['data'] = []
+        with open('db_url.json', 'w') as output:
+            json.dump(data, output)
+    with open('db_config.json') as input:
+        data = json.load(input)
+    if 'data' not in data:
+        data['data'] = []
+        with open('db_config.json', 'w') as output:
+            json.dump(data, output)
     os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
     myappid = 'mycompany.myproduct.subproduct.version' # arbitrary string
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)

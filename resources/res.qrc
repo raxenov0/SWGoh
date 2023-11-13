@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="resources">
+    <file>image/icon.png</file>
+    <file>image/icon.ico</file>
     <file>image/robot2.png</file>
     <file>image/robot.png</file>
     <file>image/switch-off.png</file>
