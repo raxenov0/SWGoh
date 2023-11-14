@@ -3,7 +3,7 @@
       {
          "data": "excel",
          "type": "extension",
-         "id": 308913297212006792
+         "id": 164144695147862947
       },
       {
          "data": [
@@ -179,19 +179,58 @@
                   }
                ],
                "active": true
-            },
-            {
-               "data": [
-                  {
-                     "name": "Geonosian Brood Alpha:Альфа",
-                     "type": "unit"
-                  }
-               ],
-               "active": false
             }
          ],
          "type": "presets",
-         "id": 448068856131348051
+         "id": 201290992753350185
+      },
+      {
+         "data": [
+            {
+               "name": "orange",
+               "hex": "#ff6600",
+               "value": "13+9 и выше",
+               "type": "color"
+            },
+            {
+               "name": "blue",
+               "hex": "#00b0f0",
+               "value": "13+8",
+               "type": "color"
+            },
+            {
+               "name": "darkgreen",
+               "hex": "#00b050",
+               "value": "13+7",
+               "type": "color"
+            },
+            {
+               "name": "green",
+               "hex": "#92d050",
+               "value": "13+1 — 13+6",
+               "type": "color"
+            },
+            {
+               "name": "lightgreen",
+               "hex": "#c4d79b",
+               "value": "12; 13+0",
+               "type": "color"
+            },
+            {
+               "name": "yellow",
+               "hex": "#ffff00",
+               "value": "11",
+               "type": "color"
+            },
+            {
+               "name": "pink",
+               "hex": "#fde9d9",
+               "value": "1 — 10; Нет",
+               "type": "color"
+            }
+         ],
+         "type": "colors",
+         "id": 277993397972935336
       }
    ]
 }

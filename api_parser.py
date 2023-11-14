@@ -152,13 +152,33 @@ def writeDataIntoExcelTable(dictOfPlayers={}, path=""):
         print(1)
         if doc_type == 'html':
             print(2)
-            xlsx2html.xlsx2html(full_path+'.xlsx', full_path+'fdfsd.html')
+            xlsx2html.xlsx2html(full_path + '.xlsx', full_path + 'fdfsd.html')
             print(3)
     else:
         raise Exception()
 
 
 def writeDataToSheet(workbook, dictOfPlayers, unitsTuple):
+    orange = "#ff6600"
+    blue = "#00b0f0"
+    darkgreen = "#00b050"
+    green = "#92d050"
+    lightgreen = "#c4d79b"
+    yellow = "#ffff00"
+    pink = "#fde9d9"
+
+    a = db.getDb("db_config.json")
+    req = a.getByQuery({"type": "colors"})
+    if req:
+        colors = req[0]["data"]
+        orange = next((item["hex"] for item in colors if item["name"] == "orange"), orange)
+        blue = next((item["hex"] for item in colors if item["name"] == "blue"), blue)
+        darkgreen = next((item["hex"] for item in colors if item["name"] == "darkgreen"), darkgreen)
+        green = next((item["hex"] for item in colors if item["name"] == "green"), green)
+        lightgreen = next((item["hex"] for item in colors if item["name"] == "lightgreen"), lightgreen)
+        yellow = next((item["hex"] for item in colors if item["name"] == "yellow"), yellow)
+        pink = next((item["hex"] for item in colors if item["name"] == "pink"), pink)
+
     worksheet = workbook.add_worksheet()
     cell_format_style = workbook.add_format()
     cell_format_style.set_pattern(1)
@@ -168,43 +188,43 @@ def writeDataToSheet(workbook, dictOfPlayers, unitsTuple):
 
     cell_format_yellow = workbook.add_format()
     cell_format_yellow.set_pattern(1)  # This is optional when using a solid fill.
-    cell_format_yellow.set_bg_color('#ffff00')
+    cell_format_yellow.set_bg_color(yellow)
     cell_format_yellow.set_border(style=1)
     cell_format_yellow.set_align('center')
 
     cell_format_green = workbook.add_format()
     cell_format_green.set_pattern(1)  # This is optional when using a solid fill.
-    cell_format_green.set_bg_color('#92d050')
+    cell_format_green.set_bg_color(green)
     cell_format_green.set_border(style=1)
     cell_format_green.set_align('center')
 
     cell_format_darkgreen = workbook.add_format()
     cell_format_darkgreen.set_pattern(1)  # This is optional when using a solid fill.
-    cell_format_darkgreen.set_bg_color('#00b050')
+    cell_format_darkgreen.set_bg_color(darkgreen)
     cell_format_darkgreen.set_border(style=1)
     cell_format_darkgreen.set_align('center')
 
     cell_format_pink = workbook.add_format()
     cell_format_pink.set_pattern(1)  # This is optional when using a solid fill.
-    cell_format_pink.set_bg_color('#fde9d9')
+    cell_format_pink.set_bg_color(pink)
     cell_format_pink.set_border(style=1)
     cell_format_pink.set_align('center')
 
     cell_format_blue = workbook.add_format()
     cell_format_blue.set_pattern(1)  # This is optional when using a solid fill.
-    cell_format_blue.set_bg_color('#00b0f0')
+    cell_format_blue.set_bg_color(blue)
     cell_format_blue.set_border(style=1)
     cell_format_blue.set_align('center')
 
     cell_format_orange = workbook.add_format()
     cell_format_orange.set_pattern(1)  # This is optional when using a solid fill.
-    cell_format_orange.set_bg_color('#FF6600')
+    cell_format_orange.set_bg_color(orange)
     cell_format_orange.set_border(style=1)
     cell_format_orange.set_align('center')
 
     cell_format_lightgreen = workbook.add_format()
     cell_format_lightgreen.set_pattern(1)  # This is optional when using a solid fill.
-    cell_format_lightgreen.set_bg_color('#c4d79b')
+    cell_format_lightgreen.set_bg_color(lightgreen)
     cell_format_lightgreen.set_border(style=1)
     cell_format_lightgreen.set_align('center')
 
@@ -259,38 +279,26 @@ def writeDataToSheet(workbook, dictOfPlayers, unitsTuple):
         for unit in unitsTuple:
             unit = unit.split(':')[0]
             try:
-                if dictOfPlayers[player]['units'][unit]['galactic_legend']: legendCount += 1
-                if getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit) == '13+9':
-                    worksheet.write(row, col,
-                                    getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit),
-                                    cell_format_orange)
-                elif getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit) == '13+8':
-                    worksheet.write(row, col,
-                                    getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit),
-                                    cell_format_blue)
-                elif getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit) == '13+7':
-                    worksheet.write(row, col,
-                                    getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit),
-                                    cell_format_darkgreen)
-                elif getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit) in ['13+4', '13+5',
-                                                                                                        '13+6', '13+3',
-                                                                                                        '13+2', '13+1',
-                                                                                                        '13']:
-                    worksheet.write(row, col,
-                                    getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit),
-                                    cell_format_green)
-                elif getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit) == '12':
-                    worksheet.write(row, col,
-                                    getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit),
-                                    cell_format_lightgreen)
-                elif getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit) == '11':
-                    worksheet.write(row, col,
-                                    getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit),
-                                    cell_format_yellow)
-                elif getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit) != 0:
-                    worksheet.write(row, col,
-                                    getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit),
-                                    cell_format_pink)
+                if dictOfPlayers[player]['units'][unit]['galactic_legend']:
+                    legendCount += 1
+
+                value = getStringOfGearAndRelic(dictOfPlayers=dictOfPlayers, player=player, unit=unit)
+                if (value.partition('+')[1] == '+' and
+                        int(value.partition('+')[0]) >= 13 and
+                        int(value.partition('+')[2]) >= 9):
+                    worksheet.write(row, col, value, cell_format_orange)
+                elif value == '13+8':
+                    worksheet.write(row, col, value, cell_format_blue)
+                elif value == '13+7':
+                    worksheet.write(row, col, value, cell_format_darkgreen)
+                elif value in ['13+6', '13+5', '13+4', '13+3', '13+2', '13+1']:
+                    worksheet.write(row, col, value, cell_format_green)
+                elif value in ['12', '13', '13+0']:
+                    worksheet.write(row, col, value, cell_format_lightgreen)
+                elif value.partition('(')[0].rstrip() == '11':
+                    worksheet.write(row, col, value, cell_format_yellow)
+                elif value != 0:
+                    worksheet.write(row, col, value, cell_format_pink)
             except:
                 if doc_type == 'html':
                     worksheet.write(row, col, 'No', cell_format_pink)

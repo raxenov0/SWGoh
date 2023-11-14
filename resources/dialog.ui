@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>587</width>
-    <height>420</height>
+    <height>455</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>587</width>
-    <height>420</height>
+    <height>455</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>587</width>
-    <height>420</height>
+    <height>455</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -36,14 +36,14 @@
      <x>0</x>
      <y>0</y>
      <width>587</width>
-     <height>420</height>
+     <height>455</height>
     </rect>
    </property>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>10</y>
+      <y>45</y>
       <width>471</width>
       <height>31</height>
      </rect>
@@ -70,7 +70,7 @@ color: rgb(0, 59, 70);</string>
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>270</y>
+      <y>305</y>
       <width>285</width>
       <height>30</height>
      </rect>
@@ -94,7 +94,7 @@ font-size: 18px;</string>
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>50</y>
+      <y>85</y>
       <width>551</width>
       <height>201</height>
      </rect>
@@ -132,11 +132,17 @@ QListWidget::item:selected {
 }</string>
     </property>
     <property name="dragDropMode">
-     <enum>QAbstractItemView::NoDragDrop</enum>
+     <enum>QAbstractItemView::InternalMove</enum>
     </property>
     <item>
      <property name="text">
       <string>fdsfdsf</string>
+     </property>
+     <property name="textAlignment">
+      <set>AlignLeading|AlignVCenter</set>
+     </property>
+     <property name="flags">
+      <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
      </property>
     </item>
     <item>
@@ -214,7 +220,7 @@ QListWidget::item:selected {
     <property name="geometry">
      <rect>
       <x>312</x>
-      <y>270</y>
+      <y>305</y>
       <width>90</width>
       <height>31</height>
      </rect>
@@ -249,7 +255,7 @@ QPushButton::pressed {
     <property name="geometry">
      <rect>
       <x>406</x>
-      <y>270</y>
+      <y>305</y>
       <width>90</width>
       <height>31</height>
      </rect>
@@ -287,7 +293,7 @@ QPushButton:disabled {
     <property name="geometry">
      <rect>
       <x>500</x>
-      <y>270</y>
+      <y>305</y>
       <width>35</width>
       <height>31</height>
      </rect>
@@ -325,7 +331,7 @@ QPushButton:disabled {
     <property name="geometry">
      <rect>
       <x>536</x>
-      <y>270</y>
+      <y>305</y>
       <width>35</width>
       <height>31</height>
      </rect>
@@ -363,7 +369,7 @@ QPushButton:disabled {
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>355</y>
+      <y>390</y>
       <width>125</width>
       <height>55</height>
      </rect>
@@ -402,7 +408,7 @@ QPushButton:disabled {
     <property name="geometry">
      <rect>
       <x>155</x>
-      <y>355</y>
+      <y>390</y>
       <width>125</width>
       <height>55</height>
      </rect>
@@ -441,7 +447,7 @@ QPushButton:disabled {
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>312</y>
+      <y>347</y>
       <width>261</width>
       <height>31</height>
      </rect>
@@ -468,7 +474,7 @@ color: rgb(0, 59, 70);</string>
     <property name="geometry">
      <rect>
       <x>350</x>
-      <y>303</y>
+      <y>338</y>
       <width>57</width>
       <height>50</height>
      </rect>
@@ -495,7 +501,7 @@ QCheckBox::indicator::unchecked {
     <property name="geometry">
      <rect>
       <x>295</x>
-      <y>312</y>
+      <y>347</y>
       <width>51</width>
       <height>31</height>
      </rect>
@@ -513,7 +519,7 @@ color: rgb(0, 59, 70);</string>
     <property name="geometry">
      <rect>
       <x>413</x>
-      <y>312</y>
+      <y>347</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -534,7 +540,7 @@ color: rgb(0, 59, 70);</string>
     <property name="geometry">
      <rect>
       <x>422</x>
-      <y>340</y>
+      <y>375</y>
       <width>20</width>
       <height>46</height>
      </rect>
@@ -568,7 +574,7 @@ QPushButton:disabled {
     <property name="geometry">
      <rect>
       <x>551</x>
-      <y>340</y>
+      <y>375</y>
       <width>20</width>
       <height>46</height>
      </rect>
@@ -602,7 +608,7 @@ QPushButton:disabled {
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>349</y>
+      <y>384</y>
       <width>118</width>
       <height>31</height>
      </rect>
@@ -630,7 +636,7 @@ color: rgb(0, 59, 70);</string>
     <property name="geometry">
      <rect>
       <x>422</x>
-      <y>383</y>
+      <y>418</y>
       <width>70</width>
       <height>25</height>
      </rect>
@@ -668,7 +674,7 @@ QPushButton:disabled {
     <property name="geometry">
      <rect>
       <x>500</x>
-      <y>383</y>
+      <y>418</y>
       <width>70</width>
       <height>25</height>
      </rect>
@@ -702,6 +708,247 @@ QPushButton:disabled {
      <string>Создать</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_13">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>9</y>
+      <width>270</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+background: autoFill;
+background-color: rgb(255, 255, 255);
+color: rgb(1, 74, 88);
+border-style: outset;
+border-width: 1px;
+border-radius: 5px;
+}
+QPushButton::pressed {
+	background-color: rgb(227, 227, 227);
+}
+QPushButton:disabled {
+	background-color: rgb(227, 227, 227);
+}</string>
+    </property>
+    <property name="text">
+     <string>Персонажи</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_14">
+    <property name="geometry">
+     <rect>
+      <x>301</x>
+      <y>10</y>
+      <width>270</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+background: autoFill;
+background-color: rgb(255, 255, 255);
+color: rgb(1, 74, 88);
+border-style: outset;
+border-width: 1px;
+border-radius: 5px;
+}
+QPushButton::pressed {
+	background-color: rgb(227, 227, 227);
+}
+QPushButton:disabled {
+	background-color: rgb(227, 227, 227);
+}</string>
+    </property>
+    <property name="text">
+     <string>Цвета</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>45</y>
+      <width>481</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <weight>9</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+font: 75 12pt &quot;Arial&quot;;
+color: rgb(0, 59, 70);</string>
+    </property>
+    <property name="text">
+     <string>Данные оформляются согласно следующим цветам:</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="listWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>85</y>
+      <width>551</width>
+      <height>250</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QScrollBar:vertical {              
+	background: white;
+    width: 12px;               
+    margin: 0px 0px 0px 0px;
+}
+QScrollBar::handle:vertical {
+    background: rgb(1, 74, 88);
+    min-height: 0px;
+}
+QScrollBar::add-line:vertical {
+    background: rgb(1, 74, 88);
+    height: 0px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+QScrollBar::sub-line:vertical {
+    background: rgb(1, 74, 88);
+    height: 0 px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+QListWidget::item:selected {
+
+	color: black;
+}</string>
+    </property>
+    <property name="dragDropMode">
+     <enum>QAbstractItemView::NoDragDrop</enum>
+    </property>
+    <item>
+     <property name="text">
+      <string>fdsfdsf</string>
+     </property>
+     <property name="textAlignment">
+      <set>AlignCenter</set>
+     </property>
+     <property name="background">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>85</red>
+        <green>170</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </property>
+     <property name="flags">
+      <set>ItemIsSelectable|ItemIsUserCheckable|ItemIsEnabled</set>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>fsd</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>fsd</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>f</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>dsf</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>ds</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>fds</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>f</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>dsf</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>dsf</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>s</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>df</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>dsf</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>dsf</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>New Item</string>
+     </property>
+    </item>
+   </widget>
    <zorder>pushButton_7</zorder>
    <zorder>label</zorder>
    <zorder>lineEdit</zorder>
@@ -720,6 +967,10 @@ QPushButton:disabled {
    <zorder>label_5</zorder>
    <zorder>pushButton_11</zorder>
    <zorder>pushButton_12</zorder>
+   <zorder>pushButton_13</zorder>
+   <zorder>pushButton_14</zorder>
+   <zorder>label_6</zorder>
+   <zorder>listWidget_2</zorder>
   </widget>
  </widget>
  <resources>

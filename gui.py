@@ -13,7 +13,8 @@ import threading
 
 import res_rc
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QDialog, QFileDialog, QMainWindow, QLineEdit
+from PyQt5.QtWidgets import QDialog, QFileDialog, QColorDialog, QMainWindow, QLineEdit
+from PyQt5.QtGui import QColor
 from PyQt5.QtCore import QThread, pyqtSignal
 import time
 from pysondb import db
@@ -94,9 +95,9 @@ class Ui_Dialog(QDialog):
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(587, 420)
-        Dialog.setMinimumSize(QtCore.QSize(587, 420))
-        Dialog.setMaximumSize(QtCore.QSize(587, 420))
+        Dialog.resize(587, 455)
+        Dialog.setMinimumSize(QtCore.QSize(587, 455))
+        Dialog.setMaximumSize(QtCore.QSize(587, 455))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/resources/image/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Dialog.setWindowIcon(icon)
@@ -104,10 +105,10 @@ class Ui_Dialog(QDialog):
                              "    background-color: rgb(240,255,255);\n"
                              "}")
         self.centralwidget = QtWidgets.QWidget(Dialog)
-        self.centralwidget.setGeometry(QtCore.QRect(0, 0, 587, 420))
+        self.centralwidget.setGeometry(QtCore.QRect(0, 0, 587, 455))
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_3.setGeometry(QtCore.QRect(20, 355, 125, 55))
+        self.pushButton_3.setGeometry(QtCore.QRect(20, 390, 125, 55))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -131,7 +132,7 @@ class Ui_Dialog(QDialog):
                                         "}")
         self.pushButton_3.setObjectName("pushButton_3")
         self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_4.setGeometry(QtCore.QRect(155, 355, 125, 55))
+        self.pushButton_4.setGeometry(QtCore.QRect(155, 390, 125, 55))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -155,7 +156,7 @@ class Ui_Dialog(QDialog):
                                         "}")
         self.pushButton_4.setObjectName("pushButton_4")
         self.listWidget = QtWidgets.QListWidget(self.centralwidget)
-        self.listWidget.setGeometry(QtCore.QRect(20, 50, 551, 201))
+        self.listWidget.setGeometry(QtCore.QRect(20, 85, 551, 201))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.listWidget.setFont(font)
@@ -186,8 +187,41 @@ class Ui_Dialog(QDialog):
                                       "}")
         self.listWidget.setDragDropMode(QtWidgets.QAbstractItemView.InternalMove)
         self.listWidget.setObjectName("listWidget")
+        self.listWidget_2 = QtWidgets.QListWidget(self.centralwidget)
+        self.listWidget_2.setGeometry(QtCore.QRect(20, 85, 551, 250))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.listWidget_2.setFont(font)
+        self.listWidget_2.setStyleSheet("QScrollBar:vertical {              \n"
+                                        "    background: white;\n"
+                                        "    width: 12px;               \n"
+                                        "    margin: 0px 0px 0px 0px;\n"
+                                        "}\n"
+                                        "QScrollBar::handle:vertical {\n"
+                                        "    background: rgb(1, 74, 88);\n"
+                                        "    min-height: 0px;\n"
+                                        "}\n"
+                                        "QScrollBar::add-line:vertical {\n"
+                                        "    background: rgb(1, 74, 88);\n"
+                                        "    height: 0px;\n"
+                                        "    subcontrol-position: bottom;\n"
+                                        "    subcontrol-origin: margin;\n"
+                                        "}\n"
+                                        "QScrollBar::sub-line:vertical {\n"
+                                        "    background: rgb(1, 74, 88);\n"
+                                        "    height: 0 px;\n"
+                                        "    subcontrol-position: top;\n"
+                                        "    subcontrol-origin: margin;\n"
+                                        "}\n"
+                                        "QListWidget::item:selected {\n"
+                                        # "    background: rgba(255, 255, 255, 10);\n"
+                                        "    color: black;\n"
+                                        "}")
+        self.listWidget_2.setDragDropMode(QtWidgets.QAbstractItemView.NoDragDrop)
+        self.listWidget_2.setObjectName("listWidget_2")
+        self.listWidget_2.setHidden(True)
         self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_5.setGeometry(QtCore.QRect(312, 270, 90, 31))
+        self.pushButton_5.setGeometry(QtCore.QRect(312, 305, 90, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(10)
@@ -209,7 +243,7 @@ class Ui_Dialog(QDialog):
         self.pushButton_5.setObjectName("pushButton_5")
         self.pushButton_6 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_6.setDisabled(True)
-        self.pushButton_6.setGeometry(QtCore.QRect(406, 270, 90, 31))
+        self.pushButton_6.setGeometry(QtCore.QRect(406, 305, 90, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(10)
@@ -234,7 +268,7 @@ class Ui_Dialog(QDialog):
         self.pushButton_6.setObjectName("pushButton_6")
         self.pushButton_7 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_7.setDisabled(True)
-        self.pushButton_7.setGeometry(QtCore.QRect(500, 270, 35, 31))
+        self.pushButton_7.setGeometry(QtCore.QRect(500, 305, 35, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(10)
@@ -259,7 +293,7 @@ class Ui_Dialog(QDialog):
         self.pushButton_7.setObjectName("pushButton_7")
         self.pushButton_8 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_8.setDisabled(True)
-        self.pushButton_8.setGeometry(QtCore.QRect(536, 270, 35, 31))
+        self.pushButton_8.setGeometry(QtCore.QRect(536, 305, 35, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(10)
@@ -283,7 +317,7 @@ class Ui_Dialog(QDialog):
                                         "}")
         self.pushButton_8.setObjectName("pushButton_8")
         self.pushButton_9 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_9.setGeometry(QtCore.QRect(422, 340, 20, 46))
+        self.pushButton_9.setGeometry(QtCore.QRect(422, 375, 20, 46))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(15)
@@ -303,7 +337,7 @@ class Ui_Dialog(QDialog):
                                         "}")
         self.pushButton_9.setObjectName("pushButton_9")
         self.pushButton_10 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_10.setGeometry(QtCore.QRect(551, 340, 20, 46))
+        self.pushButton_10.setGeometry(QtCore.QRect(551, 375, 20, 46))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(15)
@@ -323,7 +357,7 @@ class Ui_Dialog(QDialog):
                                          "}")
         self.pushButton_10.setObjectName("pushButton_10")
         self.pushButton_11 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_11.setGeometry(QtCore.QRect(422, 383, 70, 25))
+        self.pushButton_11.setGeometry(QtCore.QRect(422, 418, 70, 25))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -347,7 +381,7 @@ class Ui_Dialog(QDialog):
                                          "}")
         self.pushButton_11.setObjectName("pushButton_11")
         self.pushButton_12 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_12.setGeometry(QtCore.QRect(500, 383, 70, 25))
+        self.pushButton_12.setGeometry(QtCore.QRect(500, 418, 70, 25))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(9)
@@ -370,8 +404,82 @@ class Ui_Dialog(QDialog):
                                          "    background-color: rgb(227, 227, 227);\n"
                                          "}")
         self.pushButton_12.setObjectName("pushButton_12")
+        self.pushButton_13 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_13.setGeometry(QtCore.QRect(20, 9, 270, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.pushButton_13.setFont(font)
+        self.pushButton_13.setStyleSheet("QPushButton {\n"
+                                         "background: autoFill;\n"
+                                         "background-color: rgb(255, 255, 255);\n"
+                                         "color: rgb(1, 74, 88);\n"
+                                         "border-style: outset;\n"
+                                         "border-width: 1px;\n"
+                                         "border-radius: 5px;\n"
+                                         "}\n"
+                                         "QPushButton::pressed {\n"
+                                         "    background-color: rgb(227, 227, 227);\n"
+                                         "}\n"
+                                         "QPushButton:disabled {\n"
+                                         "    background-color: rgb(227, 227, 227);\n"
+                                         "}")
+        self.pushButton_13.setObjectName("pushButton_13")
+        self.pushButton_13.setDisabled(True)
+        self.pushButton_14 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_14.setGeometry(QtCore.QRect(301, 10, 270, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.pushButton_14.setFont(font)
+        self.pushButton_14.setStyleSheet("QPushButton {\n"
+                                         "background: autoFill;\n"
+                                         "background-color: rgb(255, 255, 255);\n"
+                                         "color: rgb(1, 74, 88);\n"
+                                         "border-style: outset;\n"
+                                         "border-width: 1px;\n"
+                                         "border-radius: 5px;\n"
+                                         "}\n"
+                                         "QPushButton::pressed {\n"
+                                         "    background-color: rgb(227, 227, 227);\n"
+                                         "}\n"
+                                         "QPushButton:disabled {\n"
+                                         "    background-color: rgb(227, 227, 227);\n"
+                                         "}")
+        self.pushButton_14.setObjectName("pushButton_14")
+        self.pushButton_15 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_15.setGeometry(QtCore.QRect(20, 390, 125, 55))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.pushButton_15.setFont(font)
+        self.pushButton_15.setStyleSheet("QPushButton {\n"
+                                         "background: autoFill;\n"
+                                         "background-color: rgb(1, 74, 88);\n"
+                                         "color: rgb(255, 255, 255);\n"
+                                         "border-style: outset;\n"
+                                         "border-width: 2px;\n"
+                                         "border-radius: 21px;\n"
+                                         "}\n"
+                                         "QPushButton::pressed {\n"
+                                         "    background-color: rgb(97, 164, 173);\n"
+                                         "}\n"
+                                         "QPushButton:disabled {\n"
+                                         "    background-color: rgba(1, 74, 88, 150);\n"
+                                         "}")
+        self.pushButton_15.setObjectName("pushButton_15")
+        self.pushButton_15.setHidden(True)
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(20, 10, 471, 31))
+        self.label.setGeometry(QtCore.QRect(20, 45, 471, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(12)
@@ -384,7 +492,7 @@ class Ui_Dialog(QDialog):
                                  "color: rgb(0, 59, 70);")
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(20, 312, 261, 31))
+        self.label_2.setGeometry(QtCore.QRect(20, 347, 261, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(12)
@@ -397,19 +505,19 @@ class Ui_Dialog(QDialog):
                                    "color: rgb(0, 59, 70);")
         self.label_2.setObjectName("label_2")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
-        self.label_3.setGeometry(QtCore.QRect(295, 312, 51, 31))
+        self.label_3.setGeometry(QtCore.QRect(295, 347, 51, 31))
         self.label_3.setStyleSheet("background: transparent;\n"
                                    "font: 75 12pt \"Arial\";\n"
                                    "color: rgb(0, 59, 70);")
         self.label_3.setObjectName("label_3")
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(413, 312, 41, 31))
+        self.label_4.setGeometry(QtCore.QRect(413, 347, 41, 31))
         self.label_4.setStyleSheet("background: transparent;\n"
                                    "font: 75 12pt \"Arial\";\n"
                                    "color: rgb(0, 59, 70);")
         self.label_4.setObjectName("label_4")
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
-        self.label_5.setGeometry(QtCore.QRect(440, 349, 118, 31))
+        self.label_5.setGeometry(QtCore.QRect(440, 384, 118, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(12)
@@ -419,8 +527,22 @@ class Ui_Dialog(QDialog):
                                    "color: rgb(0, 59, 70);")
         self.label_5.setAlignment(QtCore.Qt.AlignCenter)
         self.label_5.setObjectName("label_5")
+        self.label_6 = QtWidgets.QLabel(self.centralwidget)
+        self.label_6.setGeometry(QtCore.QRect(20, 45, 481, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_6.setFont(font)
+        self.label_6.setStyleSheet("background: transparent;\n"
+                                   "font: 75 12pt \"Arial\";\n"
+                                   "color: rgb(0, 59, 70);")
+        self.label_6.setObjectName("label_6")
+        self.label_6.setHidden(True)
         self.lineEdit = QLineEdit(self.centralwidget)
-        self.lineEdit.setGeometry(QtCore.QRect(20, 270, 285, 30))
+        self.lineEdit.setGeometry(QtCore.QRect(20, 305, 285, 30))
         self.lineEdit.setStyleSheet("border-style: outset;\n"
                                     "border-width: 2px;\n"
                                     "border-radius: 8px;\n"
@@ -430,7 +552,7 @@ class Ui_Dialog(QDialog):
         self.lineEdit.setClearButtonEnabled(True)
         self.lineEdit.setObjectName("lineEdit")
         self.checkBox = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox.setGeometry(QtCore.QRect(350, 303, 57, 50))
+        self.checkBox.setGeometry(QtCore.QRect(350, 338, 57, 50))
         self.checkBox.setStyleSheet("QCheckBox::indicator {\n"
                                     "    width: 50px;\n"
                                     "    height: 50px;\n"
@@ -458,6 +580,7 @@ class Ui_Dialog(QDialog):
         self.label_2.setText(_translate("Dialog", "Формат сохранения данных:"))
         self.label_3.setText(_translate("Dialog", "excel"))
         self.label_4.setText(_translate("Dialog", "html"))
+        self.label_6.setText(_translate("Dialog", "Данные оформляются согласно следующим цветам:"))
         self.lineEdit.setPlaceholderText(_translate("Dialog", "APIИмя:ПользовательскоеИмя"))
         self.pushButton_5.setText(_translate("Dialog", "Добавить"))
         self.pushButton_6.setText(_translate("Dialog", "Удалить"))
@@ -469,6 +592,9 @@ class Ui_Dialog(QDialog):
         self.pushButton_10.setText(_translate("Dialog", "❯"))
         self.pushButton_11.setText(_translate("Dialog", "Удалить"))
         self.pushButton_12.setText(_translate("Dialog", "Создать"))
+        self.pushButton_13.setText(_translate("Dialog", "Персонажи"))
+        self.pushButton_14.setText(_translate("Dialog", "Цвета"))
+        self.pushButton_15.setText(_translate("Dialog", "Принять\nизменения"))
 
     def setPreset(self):
         self.changePreset()
@@ -485,11 +611,21 @@ class Ui_Dialog(QDialog):
         self.pushButton_10.clicked.connect(self.changePresetNext)
         self.pushButton_11.clicked.connect(self.deletePreset)
         self.pushButton_12.clicked.connect(self.createPreset)
+        self.pushButton_13.clicked.connect(self.hideColorsBlock)
+        self.pushButton_14.clicked.connect(self.hidePresetBlock)
+        self.pushButton_15.clicked.connect(self.saveColorsAndExt)
         self.lineEdit.textChanged.connect(self.removeSelectList)
         self.listWidget.currentRowChanged.connect(self.setVisibleMenuButtons)
+        self.listWidget_2.itemDoubleClicked.connect(self.setColorItem)
+        self.checkBox.clicked.connect(self.activateSaveButton)
 
     def saveConfig(self):
         a = db.getDb("db_config.json")
+        req = a.getByQuery({"type": "colors"})
+        colors = []
+        if req:
+            colors = req[0]["data"]
+
         req = a.getByQuery({"type": "presets"})
         presets = []
         if req:
@@ -517,6 +653,7 @@ class Ui_Dialog(QDialog):
             presets.append(({"data": items, "active": True}))
 
         data.append({"data": presets, "type": "presets"})
+        data.append({"data": colors, "type": "colors"})
         a.addMany(data)
 
         self.pushButton_4.setDisabled(True)
@@ -539,6 +676,39 @@ class Ui_Dialog(QDialog):
         if not self.pushButton_4.isEnabled():
             self.close()
 
+    def saveColorsAndExt(self):
+        a = db.getDb("db_config.json")
+        req = a.getByQuery({"type": "presets"})
+        presets = []
+        if req:
+            presets = req[0]["data"]
+
+        data = []
+
+        if self.checkBox.isChecked():
+            ext = "html"
+        else:
+            ext = "excel"
+
+        data.append({"data": ext, "type": "extension"})
+        data.append({"data": presets, "type": "presets"})
+
+        req = a.getByQuery({"type": "colors"})
+        colors = req[0]["data"]
+
+        items = []
+        for i in range(self.listWidget_2.count()):
+            name = colors[i]["name"]
+            code = self.listWidget_2.item(i).background().color().name()
+            value = self.listWidget_2.item(i).text()
+            items.append({"name": name, "hex": code, "value": value, "type": "color"})
+
+        data.append({"data": items, "type": "colors"})
+
+        a.deleteAll()
+        a.addMany(data)
+        self.pushButton_15.setDisabled(True)
+
     def removeSelectList(self):
         self.listWidget.setCurrentRow(-1)
 
@@ -554,6 +724,10 @@ class Ui_Dialog(QDialog):
         self.pushButton_6.setDisabled(flag)
         self.pushButton_7.setDisabled(flag)
         self.pushButton_8.setDisabled(flag)
+
+    def activateSaveButton(self):
+        self.pushButton_4.setDisabled(False)
+        self.pushButton_15.setDisabled(False)
 
     def setVisibleMenuButtons(self):
         row = self.listWidget.currentRow()
@@ -615,7 +789,14 @@ class Ui_Dialog(QDialog):
 
         self.label_5.setText("Вкладка " + str(self.numPreset))
         self.listWidget.clear()
-        self.listWidget.addItems(self.getItems(self.numPreset))
+
+        items = self.getItems(self.numPreset)
+        for name in items:
+            item = QtWidgets.QListWidgetItem()
+            item.setFlags(
+                QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsDragEnabled | QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
+            item.setText(name)
+            self.listWidget.addItem(item)
 
     def deletePreset(self):
         a = db.getDb("db_config.json")
@@ -649,6 +830,61 @@ class Ui_Dialog(QDialog):
         self.countPresets += 1
         self.numPreset = self.countPresets
         self.changePreset()
+
+    def setHiddenMenuBlocks(self, flag: bool):
+        self.pushButton_4.setDisabled(False)
+        self.pushButton_15.setDisabled(False)
+
+        self.pushButton_13.setDisabled(not flag)
+        self.pushButton_14.setDisabled(flag)
+
+        self.label.setHidden(flag)
+        self.listWidget.setHidden(flag)
+        self.lineEdit.setHidden(flag)
+        self.pushButton_5.setHidden(flag)
+        self.pushButton_6.setHidden(flag)
+        self.pushButton_7.setHidden(flag)
+        self.pushButton_8.setHidden(flag)
+        self.pushButton_3.setHidden(flag)
+        self.pushButton_4.setHidden(flag)
+        self.pushButton_9.setHidden(flag)
+        self.pushButton_10.setHidden(flag)
+        self.pushButton_11.setHidden(flag)
+        self.pushButton_12.setHidden(flag)
+        self.label_5.setHidden(flag)
+
+        self.label_6.setHidden(not flag)
+        self.listWidget_2.setHidden(not flag)
+        self.pushButton_15.setHidden(not flag)
+
+    def hidePresetBlock(self):
+        self.setHiddenMenuBlocks(True)
+
+        self.listWidget_2.clear()
+
+        a = db.getDb("db_config.json")
+        req = a.getByQuery({"type": "colors"})
+
+        if req:
+            colors = req[0]["data"]
+
+            gen = (item for item in colors if item["type"] == "color")
+            for color in gen:
+                item = QtWidgets.QListWidgetItem()
+                item.setTextAlignment(QtCore.Qt.AlignCenter)
+                item.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
+                item.setBackground(QColor(color["hex"]))
+                item.setText(color["value"])
+                self.listWidget_2.addItem(item)
+
+    def hideColorsBlock(self):
+        self.setHiddenMenuBlocks(False)
+
+    def setColorItem(self):
+        item = self.listWidget_2.currentItem()
+        color = QColorDialog.getColor(title="Выбрать цвет")
+        if color.isValid():
+            item.setBackground(color)
 
 
 class PopupException(QDialog):
