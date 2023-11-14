@@ -52,7 +52,7 @@ class Ui_Dialog(QDialog):
         if presets:
             active = next((item for item in presets if item["active"]), None)
             if active:
-                return {"active": active["number"], "count": len(presets)}
+                return {"active": presets.index(active) + 1, "count": len(presets)}
         return {"active": 1, "count": 1}
 
     @staticmethod
@@ -65,8 +65,8 @@ class Ui_Dialog(QDialog):
 
         items = []
         if presets:
-            preset = next((item for item in presets if item["number"] == num), None)
-            if preset:
+            if 0 <= num - 1 < len(presets):
+                preset = presets[num - 1]
                 data = preset["data"]
                 items = [item["name"] for item in data if item["type"] == "unit"]
 
@@ -107,7 +107,7 @@ class Ui_Dialog(QDialog):
         self.centralwidget.setGeometry(QtCore.QRect(0, 0, 587, 420))
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_3.setGeometry(QtCore.QRect(20, 355, 120, 50))
+        self.pushButton_3.setGeometry(QtCore.QRect(20, 355, 125, 55))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -131,7 +131,7 @@ class Ui_Dialog(QDialog):
                                         "}")
         self.pushButton_3.setObjectName("pushButton_3")
         self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_4.setGeometry(QtCore.QRect(155, 355, 120, 50))
+        self.pushButton_4.setGeometry(QtCore.QRect(155, 355, 125, 55))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -208,7 +208,7 @@ class Ui_Dialog(QDialog):
                                         "}")
         self.pushButton_5.setObjectName("pushButton_5")
         self.pushButton_6 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_6.setHidden(True)
+        self.pushButton_6.setDisabled(True)
         self.pushButton_6.setGeometry(QtCore.QRect(406, 270, 90, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -227,10 +227,13 @@ class Ui_Dialog(QDialog):
                                         "}\n"
                                         "QPushButton::pressed {\n"
                                         "    background-color: rgb(97, 164, 173);\n"
+                                        "}\n"
+                                        "QPushButton:disabled {\n"
+                                        "background-color: rgba(1, 74, 88, 150);\n"
                                         "}")
         self.pushButton_6.setObjectName("pushButton_6")
         self.pushButton_7 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_7.setHidden(True)
+        self.pushButton_7.setDisabled(True)
         self.pushButton_7.setGeometry(QtCore.QRect(500, 270, 35, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -255,7 +258,7 @@ class Ui_Dialog(QDialog):
                                         "}")
         self.pushButton_7.setObjectName("pushButton_7")
         self.pushButton_8 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_8.setHidden(True)
+        self.pushButton_8.setDisabled(True)
         self.pushButton_8.setGeometry(QtCore.QRect(536, 270, 35, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -280,7 +283,7 @@ class Ui_Dialog(QDialog):
                                         "}")
         self.pushButton_8.setObjectName("pushButton_8")
         self.pushButton_9 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_9.setGeometry(QtCore.QRect(422, 354, 20, 46))
+        self.pushButton_9.setGeometry(QtCore.QRect(422, 340, 20, 46))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(15)
@@ -300,7 +303,7 @@ class Ui_Dialog(QDialog):
                                         "}")
         self.pushButton_9.setObjectName("pushButton_9")
         self.pushButton_10 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_10.setGeometry(QtCore.QRect(551, 354, 20, 46))
+        self.pushButton_10.setGeometry(QtCore.QRect(551, 340, 20, 46))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(15)
@@ -319,6 +322,54 @@ class Ui_Dialog(QDialog):
                                          "    color: rgba(1, 74, 88, 150);\n"
                                          "}")
         self.pushButton_10.setObjectName("pushButton_10")
+        self.pushButton_11 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_11.setGeometry(QtCore.QRect(422, 383, 70, 25))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.pushButton_11.setFont(font)
+        self.pushButton_11.setStyleSheet("QPushButton {\n"
+                                         "background: autoFill;\n"
+                                         "background-color: rgb(255, 255, 255);\n"
+                                         "color: rgb(1, 74, 88);\n"
+                                         "border-style: outset;\n"
+                                         "border-width: 1px;\n"
+                                         "border-radius: 5px;\n"
+                                         "}\n"
+                                         "QPushButton::pressed {\n"
+                                         "    background-color: rgb(227, 227, 227);\n"
+                                         "}\n"
+                                         "QPushButton:disabled {\n"
+                                         "    background-color: rgb(227, 227, 227);\n"
+                                         "}")
+        self.pushButton_11.setObjectName("pushButton_11")
+        self.pushButton_12 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_12.setGeometry(QtCore.QRect(500, 383, 70, 25))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.pushButton_12.setFont(font)
+        self.pushButton_12.setStyleSheet("QPushButton {\n"
+                                         "background: autoFill;\n"
+                                         "background-color: rgb(255, 255, 255);\n"
+                                         "color: rgb(1, 74, 88);\n"
+                                         "border-style: outset;\n"
+                                         "border-width: 1px;\n"
+                                         "border-radius: 5px;\n"
+                                         "}\n"
+                                         "QPushButton::pressed {\n"
+                                         "    background-color: rgb(227, 227, 227);\n"
+                                         "}\n"
+                                         "QPushButton:disabled {\n"
+                                         "    background-color: rgb(227, 227, 227);\n"
+                                         "}")
+        self.pushButton_12.setObjectName("pushButton_12")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(20, 10, 471, 31))
         font = QtGui.QFont()
@@ -358,7 +409,7 @@ class Ui_Dialog(QDialog):
                                    "color: rgb(0, 59, 70);")
         self.label_4.setObjectName("label_4")
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
-        self.label_5.setGeometry(QtCore.QRect(440, 363, 118, 31))
+        self.label_5.setGeometry(QtCore.QRect(440, 349, 118, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(12)
@@ -416,6 +467,8 @@ class Ui_Dialog(QDialog):
         self.pushButton_4.setText(_translate("Dialog", "Принять\nизменения"))
         self.pushButton_9.setText(_translate("Dialog", "❮"))
         self.pushButton_10.setText(_translate("Dialog", "❯"))
+        self.pushButton_11.setText(_translate("Dialog", "Удалить"))
+        self.pushButton_12.setText(_translate("Dialog", "Создать"))
 
     def setPreset(self):
         self.changePreset()
@@ -430,6 +483,8 @@ class Ui_Dialog(QDialog):
         self.pushButton_8.clicked.connect(self.changeRowSelectItemDown)
         self.pushButton_9.clicked.connect(self.changePresetPrev)
         self.pushButton_10.clicked.connect(self.changePresetNext)
+        self.pushButton_11.clicked.connect(self.deletePreset)
+        self.pushButton_12.clicked.connect(self.createPreset)
         self.lineEdit.textChanged.connect(self.removeSelectList)
         self.listWidget.currentRowChanged.connect(self.setVisibleMenuButtons)
 
@@ -455,11 +510,11 @@ class Ui_Dialog(QDialog):
         for i in range(self.listWidget.count()):
             items.append({"name": self.listWidget.item(i).text(), "type": "unit"})
 
-        preset = next((item for item in presets if item["number"] == self.numPreset), None)
-        if preset:
+        if 0 <= self.numPreset - 1 < len(presets):
+            preset = presets[self.numPreset - 1]
             preset["data"] = items
         else:
-            presets.append(({"data": items, "active": True, "number": 1}))
+            presets.append(({"data": items, "active": True}))
 
         data.append({"data": presets, "type": "presets"})
         a.addMany(data)
@@ -472,10 +527,10 @@ class Ui_Dialog(QDialog):
     def setActivePreset(self):
         a = db.getDb("db_config.json")
         data = a.getAll()
-        presets = next((item for item in data if item["type"] == "presets"), None)["data"]
-        preset = next((item for item in presets if item["number"] == self.numActivePreset), None)
+        presets = next((item for item in data if item["type"] == "presets"))["data"]
+        preset = presets[self.numActivePreset - 1]
         preset["active"] = False
-        preset = next((item for item in presets if item["number"] == self.numPreset), None)
+        preset = presets[self.numPreset - 1]
         preset["active"] = True
         self.numActivePreset = self.numPreset
         a.deleteAll()
@@ -495,24 +550,21 @@ class Ui_Dialog(QDialog):
             self.lineEdit.setText('')
         self.removeSelectList()
 
-    def setHiddenMenuButtons(self, flag: bool):
-        self.pushButton_6.setHidden(flag)
-        self.pushButton_7.setHidden(flag)
-        self.pushButton_8.setHidden(flag)
-        if not flag:
-            self.pushButton_7.setDisabled(False)
-            self.pushButton_8.setDisabled(False)
+    def setDisabledMenuButtons(self, flag: bool):
+        self.pushButton_6.setDisabled(flag)
+        self.pushButton_7.setDisabled(flag)
+        self.pushButton_8.setDisabled(flag)
 
     def setVisibleMenuButtons(self):
         row = self.listWidget.currentRow()
         if row != -1:
-            self.setHiddenMenuButtons(False)
+            self.setDisabledMenuButtons(False)
             if row == 0:
                 self.pushButton_7.setDisabled(True)
             if row == self.listWidget.count() - 1:
                 self.pushButton_8.setDisabled(True)
         else:
-            self.setHiddenMenuButtons(True)
+            self.setDisabledMenuButtons(True)
 
     def removeItemFromList(self):
         item = self.listWidget.currentRow()
@@ -543,6 +595,7 @@ class Ui_Dialog(QDialog):
         self.changePreset()
 
     def changePreset(self):
+        self.pushButton_4.setDisabled(False)
         self.pushButton_9.setDisabled(False)
         self.pushButton_10.setDisabled(False)
         if self.numPreset == 1:
@@ -555,9 +608,47 @@ class Ui_Dialog(QDialog):
         else:
             self.pushButton_3.setDisabled(False)
 
+        if self.countPresets == 1:
+            self.pushButton_11.setDisabled(True)
+        else:
+            self.pushButton_11.setDisabled(False)
+
         self.label_5.setText("Вкладка " + str(self.numPreset))
         self.listWidget.clear()
         self.listWidget.addItems(self.getItems(self.numPreset))
+
+    def deletePreset(self):
+        a = db.getDb("db_config.json")
+        data = a.getAll()
+        presets = next((item for item in data if item["type"] == "presets"))["data"]
+        preset = presets.pop(self.numPreset - 1)
+        flag = preset["active"]
+        a.deleteAll()
+        a.addMany(data)
+
+        self.countPresets -= 1
+        if self.numPreset != 1:
+            self.numPreset -= 1
+
+        if flag:
+            self.numActivePreset = self.numPreset
+            self.setActivePreset()
+        else:
+            self.numActivePreset = self.getNumberPreset()["active"]
+
+        self.changePreset()
+
+    def createPreset(self):
+        a = db.getDb("db_config.json")
+        data = a.getAll()
+        presets = next((item for item in data if item["type"] == "presets"))["data"]
+        presets.append({"data": [], "active": False})
+        a.deleteAll()
+        a.addMany(data)
+
+        self.countPresets += 1
+        self.numPreset = self.countPresets
+        self.changePreset()
 
 
 class PopupException(QDialog):

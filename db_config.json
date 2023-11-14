@@ -3,7 +3,7 @@
       {
          "data": "excel",
          "type": "extension",
-         "id": 794280143618530190
+         "id": 308913297212006792
       },
       {
          "data": [
@@ -178,8 +178,7 @@
                      "type": "unit"
                   }
                ],
-               "active": false,
-               "number": 1
+               "active": true
             },
             {
                "data": [
@@ -188,26 +187,11 @@
                      "type": "unit"
                   }
                ],
-               "active": true,
-               "number": 2
-            },
-            {
-               "data": [
-                  {
-                     "name": "Geonosian Brood Alpha:Альфа",
-                     "type": "unit"
-                  },
-                  {
-                     "name": "Test:Test",
-                     "type": "unit"
-                  }
-               ],
-               "active": false,
-               "number": 3
+               "active": false
             }
          ],
          "type": "presets",
-         "id": 117999971592211384
+         "id": 448068856131348051
       }
    ]
 }
