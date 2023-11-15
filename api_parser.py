@@ -5,7 +5,7 @@ import xlsxwriter
 from pysondb import db
 from time import sleep
 from transliterate import translit
-import xlsx2html
+from xlsx2html import xlsx2html
 
 
 def has_russian_letters(word):
@@ -152,7 +152,7 @@ def writeDataIntoExcelTable(dictOfPlayers={}, path=""):
         print(1)
         if doc_type == 'html':
             print(2)
-            xlsx2html.xlsx2html(full_path + '.xlsx', full_path + 'fdfsd.html')
+            xlsx2html(full_path + '.xlsx', full_path + '.html')
             print(3)
     else:
         raise Exception()

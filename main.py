@@ -130,7 +130,7 @@ def setupDatabaseJSON():
 
     item = next((item for item in data if item['type'] == 'colors'), False)
     if not item:
-        data.append({"data": colors, "type": "colors"})
+        data.append({"data": colors, "type": "colors", "id": 0})
 
     a.deleteAll()
     a.addMany(data)
