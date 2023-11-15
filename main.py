@@ -70,7 +70,6 @@ def swCall():
     myThread = GuiThread(mainWindow=ui)
     myThread.start()
 
-
     # Обработка ошибок
     try:
         myThread2.join(1)
@@ -90,24 +89,60 @@ def swCall():
         ui.progressBar.setValue(0)
 
 
-def main():
-    import sys
-    import ctypes
+def setupDatabaseJSON():
     import json
-    with open('db_url.json') as input:
-        data = json.load(input)
+    from pysondb import db
+
+    with open('db_url.json') as inp:
+        data = json.load(inp)
+
     if 'data' not in data:
         data['data'] = []
         with open('db_url.json', 'w') as output:
             json.dump(data, output)
-    with open('db_config.json') as input:
-        data = json.load(input)
+
+    with open('db_config.json') as inp:
+        data = json.load(inp)
+
     if 'data' not in data:
         data['data'] = []
         with open('db_config.json', 'w') as output:
             json.dump(data, output)
+
+    a = db.getDb("db_config.json")
+    data = a.getAll()
+
+    colors = next((item['data'] for item in data if item['type'] == 'colors'), [])
+    if not next((item for item in colors if item['name'] == 'orange'), False):
+        colors.insert(0, {"name": "orange", "hex": "#ff6600", "value": "13+9 и выше", "type": "color"})
+    if not next((item for item in colors if item['name'] == 'blue'), False):
+        colors.insert(1, {"name": "blue", "hex": "#00b0f0", "value": "13+8", "type": "color"})
+    if not next((item for item in colors if item['name'] == 'darkgreen'), False):
+        colors.insert(2, {"name": "darkgreen", "hex": "#00b050", "value": "13+7", "type": "color"})
+    if not next((item for item in colors if item['name'] == 'green'), False):
+        colors.insert(3, {"name": "green", "hex": "#92d050", "value": "13+1 — 13+6", "type": "color"})
+    if not next((item for item in colors if item['name'] == 'lightgreen'), False):
+        colors.insert(4, {"name": "lightgreen", "hex": "#c4d79b", "value": "12; 13+0", "type": "color"})
+    if not next((item for item in colors if item['name'] == 'yellow'), False):
+        colors.insert(5, {"name": "yellow", "hex": "#ffff00", "value": "11", "type": "color"})
+    if not next((item for item in colors if item['name'] == 'pink'), False):
+        colors.insert(6, {"name": "pink", "hex": "#fde9d9", "value": "1 — 10; Нет", "type": "color"})
+
+    item = next((item for item in data if item['type'] == 'colors'), False)
+    if not item:
+        data.append({"data": colors, "type": "colors"})
+
+    a.deleteAll()
+    a.addMany(data)
+
+
+def main():
+    import sys
+    import ctypes
+
+    setupDatabaseJSON()
     os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
-    myappid = 'mycompany.myproduct.subproduct.version' # arbitrary string
+    myappid = 'mycompany.myproduct.subproduct.version'  # arbitrary string
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
     app = QtWidgets.QApplication(sys.argv)
     app.setWindowIcon(QtGui.QIcon('ico.ico'))

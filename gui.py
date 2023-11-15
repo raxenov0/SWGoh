@@ -997,7 +997,7 @@ class Ui_MainWindow(QMainWindow):
         self.pushButton.setFont(font)
         self.pushButton.setStyleSheet("QPushButton {\n"
                                       "background: autoFill;\n"
-                                      "background-color: rgb(1, 74, 88);\n"
+                                      "background-color: rgb(0, 108, 125);\n"
                                       "color: rgb(255, 255, 255);\n"
                                       "border-style: outset;\n"
                                       "border-width: 2px;\n"
