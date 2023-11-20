@@ -510,24 +510,6 @@ class Ui_MainWindow(QMainWindow):
                                         "    background-color: rgb(97, 164, 173);\n"
                                         "}")
         self.pushButton_4.setObjectName("pushButton_4")
-        self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
-        self.progressBar.setGeometry(QtCore.QRect(199, 423, 444, 15))
-        self.progressBar.setStyleSheet("QProgressBar {\n"
-                                       "    border-style: solid;\n"
-                                       "    border-width: 1px;\n"
-                                       "    border-radius: 23px;\n"
-                                       "    background:transparent;\n"
-                                       "    background-color: rgb(203, 228, 233);\n"
-                                       "    text-align: center;\n"
-                                       "}\n"
-                                       "\n"
-                                       "QProgressBar::chunk  {\n"
-                                       "    border-radius: 10px;\n"
-                                       "    background-color: rgb(0, 105, 109);\n"
-                                       "}\n"
-                                       "")
-        self.progressBar.setProperty("value", 0)
-        self.progressBar.setObjectName("progressBar")
 
         self.lineEdit = self.MyLineEdit(self.centralwidget)
         self.lineEdit.setGeometry(QtCore.QRect(355, 111, 300, 30))
@@ -695,21 +677,6 @@ class Ui_MainWindow(QMainWindow):
         dialog = Ui_Dialog()
         dialog.setupUi(dialog)
         dialog.exec_()
-
-    def startProgressBar(self):
-        self.thread1 = MyThread(sleep=1.5)
-        self.thread1.change_value.connect(self.changeValueOfProgressBar)
-        self.thread1.start()
-        self.thread2 = MyThread(sleep=0.3)
-        self.thread2.change_value.connect(self.changeValueOfRobot)
-        self.thread2.start()
-        self.pushButton.setEnabled(False)
-        self.pushButton_2.setEnabled(False)
-        self.lineEdit.setEnabled(False)
-        self.checkBox.setEnabled(False)
-
-    def changeValueOfProgressBar(self, val):
-        self.progressBar.setValue(val)
 
     def changeValueOfRobot(self):
         self.checkBox_2.setChecked(not self.checkBox_2.isChecked())

@@ -21,10 +21,6 @@ class ParserThread(threading.Thread):
             getInfoFromAPI(
                 id=self.PlayerId, needGuild=self.PlayerNeedGuild, pathForSave=self.PlayerPathForSave)
             killResources(ui=self.window)
-            time.sleep(3)
-            self.window.progressBar.setValue(100)
-            time.sleep(5)
-            self.window.progressBar.setValue(0)
             self.window.checkBox_2.setChecked(False)
             # self.window.show_popup_success()
             # self.window.progressBar.setValue(0)
@@ -50,7 +46,6 @@ class GuiThread(threading.Thread):
     def run(self):
         print('run')
         self.exception = None
-        self.window.startProgressBar()
 
 
 def killResources(ui):
@@ -82,12 +77,10 @@ def swCall():
         print(ex)
         killResources(ui=ui)
         ui.show_popup()
-        ui.progressBar.setValue(0)
     except Exception as ex:
         print(ex)
         killResources(ui=ui)
         ui.show_popup_ex()
-        ui.progressBar.setValue(0)
 
 
 def main():
