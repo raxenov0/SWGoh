@@ -52,7 +52,6 @@ def killResources(ui):
     ui.lineEdit.setEnabled(True)
     ui.checkBox.setEnabled(True)
     ui.checkBox_2.setChecked(False)
-    time.sleep(1)
 
 
 def swCall():
@@ -72,6 +71,7 @@ def swCall():
 def swCallSuccess():
     killResources(ui=ui)
     ui.progressBar.setValue(100)
+    time.sleep(0.2)
     ui.show_popup_success()
     ui.progressBar.setValue(0)
 

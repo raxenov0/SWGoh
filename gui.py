@@ -25,19 +25,23 @@ class MyThread(QThread):
         super().__init__()
         self.sleepBar = sleep
         self.exit_event = threading.Event()
+        self.working = True
 
     change_value = pyqtSignal(int)
 
     def run(self):
         cnt = 0
-        while cnt < 1000:
-            cnt += 1
-            time.sleep(self.sleepBar)
-            self.change_value.emit(cnt)
-            if self.exit_event.is_set():
-                break
+        startTime = time.monotonic()
+        while cnt < 1000 and self.working:
+            if self.sleepBar * cnt < time.monotonic() - startTime:
+                cnt += 1
+                self.change_value.emit(cnt)
+                if self.exit_event.is_set():
+                    break
+            time.sleep(0.1)
 
     def stop(self):
+        self.working = False
         self.exit_event.set()
 
 
