@@ -23,12 +23,6 @@ class ParserThread(QThread):
             getInfoFromAPI(
                 id=self.PlayerId, needGuild=self.PlayerNeedGuild, pathForSave=self.PlayerPathForSave)
             killResources(ui=self.window)
-            time.sleep(.1)
-            self.window.progressBar.setValue(100)
-            time.sleep(.1)
-            self.window.thread1.stop()
-            time.sleep(3)
-            self.window.progressBar.setValue(0)
             self.window.checkBox_2.setChecked(False)
             # self.window.show_popup_success()
             # self.window.progressBar.setValue(0)
@@ -58,6 +52,7 @@ def killResources(ui):
     ui.lineEdit.setEnabled(True)
     ui.checkBox.setEnabled(True)
     ui.checkBox_2.setChecked(False)
+    time.sleep(1)
 
 
 def swCall():
@@ -65,13 +60,20 @@ def swCall():
         '-', ''), needGuild=ui.checkBox.isChecked(), pathForSave=ui.lineEdit_2.text() + '/', mainWindow=ui)
     myThread2.start()
     myThread = GuiThread(mainWindow=ui)
-    myThread2.completed.connect(ui.show_popup_success)
+    myThread2.completed.connect(swCallSuccess)
     myThread2.exception.connect(swCallExc)
     myThread2.notFound.connect(swCallNotFound)
     myThread.start()
     # time.sleep(2)
     # myThread2.join()
     # ui.show_popup_success()
+
+
+def swCallSuccess():
+    killResources(ui=ui)
+    ui.progressBar.setValue(100)
+    ui.show_popup_success()
+    ui.progressBar.setValue(0)
 
 
 def swCallExc():
