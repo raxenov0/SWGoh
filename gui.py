@@ -1271,7 +1271,7 @@ class Ui_MainWindow(QMainWindow):
         dialog.exec_()
 
     def startProgressBar(self):
-        self.thread1 = MyThread(sleep=1)
+        self.thread1 = MyThread(sleep=1.5)
         self.thread1.change_value.connect(self.changeValueOfProgressBar)
         self.thread1.start()
         self.thread2 = MyThread(sleep=0.3)
