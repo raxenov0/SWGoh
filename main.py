@@ -5,14 +5,17 @@ import sys
 import os
 
 
-class ParserThread(threading.Thread):
+class ParserThread(QThread):
     def __init__(self, id, needGuild, pathForSave, mainWindow):
         super().__init__()
         self.PlayerId = id or "000000000"
         self.PlayerNeedGuild = needGuild
         self.PlayerPathForSave = pathForSave
         self.window = mainWindow
-        self.exception = None
+
+    exception = pyqtSignal()
+    notFound = pyqtSignal()
+    completed = pyqtSignal()
 
     def run(self):
         print('run')
@@ -29,18 +32,11 @@ class ParserThread(threading.Thread):
             self.window.checkBox_2.setChecked(False)
             # self.window.show_popup_success()
             # self.window.progressBar.setValue(0)
+            self.completed.emit()
         except NotFoundPlayer as ex:
-            self.exception = ex
+            self.notFound.emit()
         except Exception as ex:
-            self.exception = ex
-
-    def join(self, timeout=None):
-        threading.Thread.join(self, timeout=timeout)
-        # Since join() returns in caller thread
-        # we re-raise the caught exception
-        # if any was caught
-        if self.exception:
-            raise self.exception
+            self.exception.emit()
 
 
 class GuiThread(threading.Thread):
@@ -69,25 +65,25 @@ def swCall():
         '-', ''), needGuild=ui.checkBox.isChecked(), pathForSave=ui.lineEdit_2.text() + '/', mainWindow=ui)
     myThread2.start()
     myThread = GuiThread(mainWindow=ui)
+    myThread2.completed.connect(ui.show_popup_success)
+    myThread2.exception.connect(swCallExc)
+    myThread2.notFound.connect(swCallNotFound)
     myThread.start()
+    # time.sleep(2)
+    # myThread2.join()
+    # ui.show_popup_success()
 
-    # Обработка ошибок
-    try:
-        myThread2.join(1)
-        time.sleep(2)
-        # myThread2.join()
-        ui.show_popup_success()
 
-    except NotFoundPlayer as ex:
-        print(ex)
-        killResources(ui=ui)
-        ui.show_popup()
-        ui.progressBar.setValue(0)
-    except Exception as ex:
-        print(ex)
-        killResources(ui=ui)
-        ui.show_popup_ex()
-        ui.progressBar.setValue(0)
+def swCallExc():
+    killResources(ui=ui)
+    ui.show_popup_ex()
+    ui.progressBar.setValue(0)
+
+
+def swCallNotFound():
+    killResources(ui=ui)
+    ui.show_popup()
+    ui.progressBar.setValue(0)
 
 
 def setupDatabaseJSON():
