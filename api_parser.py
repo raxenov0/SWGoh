@@ -246,7 +246,7 @@ def writeDataToSheet(workbook, dictOfPlayers, unitsTuple):
     row = 0
     col = 0
 
-    worksheet.write(row, col, '№', cell_format_style)
+    worksheet.write(row, col, 'N', cell_format_style)
     col += 1
     worksheet.write(row, col, 'Nickname', cell_format_style)
     col += 1
@@ -268,15 +268,20 @@ def writeDataToSheet(workbook, dictOfPlayers, unitsTuple):
     col = 0
     maxLengthNickname = 0
     legendCount = 0
+    global_galactic_power = 0
+    crutoe_chislo_123 = [0] * len(unitsTuple)
     for player in dictOfPlayers.keys():
+        counter = -1
         if (len(player) > maxLengthNickname): maxLengthNickname = len(player)
         worksheet.write(row, col, row, cell_format_style)
         col += 1
         worksheet.write(row, col, player, cell_format_style)
         col += 1
         worksheet.write(row, col, dictOfPlayers[player]['galactic_power'], cell_format_num)
+        global_galactic_power += dictOfPlayers[player]['galactic_power']
         col += 1
         for unit in unitsTuple:
+            counter += 1
             unit = unit.split(':')[0]
             try:
                 if dictOfPlayers[player]['units'][unit]['galactic_legend']:
@@ -299,6 +304,7 @@ def writeDataToSheet(workbook, dictOfPlayers, unitsTuple):
                     worksheet.write(row, col, value, cell_format_yellow)
                 elif value != 0:
                     worksheet.write(row, col, value, cell_format_pink)
+                crutoe_chislo_123[counter] += 1
             except:
                 if doc_type == 'html':
                     worksheet.write(row, col, 'No', cell_format_pink)
@@ -315,15 +321,20 @@ def writeDataToSheet(workbook, dictOfPlayers, unitsTuple):
         worksheet.write(row, col, 'Leg', cell_format_red)
     else:
         worksheet.write(row, col, 'Лег', cell_format_red)
-    worksheet.write(row, col + 1, legendCount, cell_format_red)
-    worksheet.write_formula(row, col + 2, '=sum(C2:C%s' % str(len(dictOfPlayers) + 1) + ')', cell_format_red)
+    worksheet.write(row, col + 1, str(legendCount), cell_format_red)
+    worksheet.write(row, col + 2, format_number(global_galactic_power), cell_format_red)
     col += 3
+    counter_2 = 0
     for i in range(3, len(unitsTuple) + 3):
         diapazon = chr(ord('A') + i) if (i //
                                          26) < 1 else chr(ord('A') + ((i // 26) - 1)) + chr(ord('A') + ((i % 26)))
-        worksheet.write_formula(row, col, '=COUNTIF(' + diapazon + str(2) + ':' + diapazon + str(
-            len(dictOfPlayers) + 1) + ',"<>Нет")', cell_format_red)
+        worksheet.write(row, col, crutoe_chislo_123[counter_2], cell_format_red)
         col += 1
+        counter_2+=1
+
+
+def format_number(n):
+    return '{:,}'.format(n)
 
 
 def getStringOfGearAndRelic(dictOfPlayers={}, player='', unit=''):
