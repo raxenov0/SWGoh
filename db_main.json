@@ -4,31 +4,31 @@
          "type": "url",
          "name": "api",
          "value": "https://swgoh.gg/api/",
-         "id": 349234404438527299
+         "id": 979853052496190841
       },
       {
          "type": "url",
          "name": "player",
          "value": "player/",
-         "id": 303639367270681768
+         "id": 992825135048913660
       },
       {
          "type": "url",
          "name": "guild",
          "value": "guild-profile/",
-         "id": 448386046272446856
+         "id": 724295384917637914
       },
       {
          "type": "url",
          "name": "characters",
          "value": "characters/",
-         "id": 281891342845920781
+         "id": 109484185484507611
       },
       {
          "type": "code",
          "name": "code",
          "value": "785-425-257",
-         "id": 209658293236822685
+         "id": 140590438506424887
       }
    ]
 }

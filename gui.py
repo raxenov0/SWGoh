@@ -1226,7 +1226,6 @@ class Ui_MainWindow(QMainWindow):
         self.label_4.setText(_translate("MainWindow", "Директория"))
         self.label_5.setText(_translate("MainWindow", "Игровой ассистент"))
         self.label_6.setText(_translate("MainWindow", "Адрес API"))
-        self.lineEdit_2.setText(os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop').replace('\\', '/'))
         self.lineEdit_3.setPlaceholderText(_translate("MainWindow", "http://"))
 
     def setConfig(self):
@@ -1244,6 +1243,14 @@ class Ui_MainWindow(QMainWindow):
             self.lineEdit.setInputMask('999-999-999')
             self.lineEdit.setText(code)
 
+        req = a.getByQuery({"type": "path"})
+        if req:
+            self.lineEdit_2.setText(req[0]["value"].
+                                    replace('\\', '/'))
+        else:
+            self.lineEdit_2.setText(os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop').
+                                    replace('\\', '/'))
+
     def checkActions(self):
         self.pushButton.clicked.connect(self.saveCodetoConfig)
         self.pushButton_2.clicked.connect(self.changeDirectory)
@@ -1251,12 +1258,29 @@ class Ui_MainWindow(QMainWindow):
         self.pushButton_4.clicked.connect(self.saveUrlAPItoConfig)
 
     def changeDirectory(self):
+        a = db.getDb("db_main.json")
+
         dialog = QFileDialog()
         dialog.setFileMode(QFileDialog.DirectoryOnly)
-        fname = dialog.getExistingDirectory(self, 'Выбор директории для сохранения',
-                                            os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop'))
+
+        req = a.getByQuery({"type": "path"})
+        if req:
+            fname = dialog.getExistingDirectory(self, 'Выбор директории для сохранения', req[0]["value"])
+        else:
+            fname = dialog.getExistingDirectory(self, 'Выбор директории для сохранения',
+                                                os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop'))
+
         if fname:
             self.lineEdit_2.setText(fname)
+
+            req = a.getByQuery({"type": "path"})
+            if req:
+                a.updateByQuery({"type": "path"}, {"value": fname.replace('/', '\\')})
+            else:
+                data = a.getAll()
+                a.deleteAll()
+                data.append({"type": "path", "name": "directory", "value": fname.replace('/', '\\'), "id": 0})
+                a.addMany(data)
 
     def saveUrlAPItoConfig(self):
         a = db.getDb("db_main.json")
