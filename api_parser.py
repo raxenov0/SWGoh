@@ -31,9 +31,9 @@ def driverRun(url=""):
 
 def getJsonInfoOfPlayer(id=0):  # Запрос информации об игроке
     try:
-        a = db.getDb("db_url.json")
-        jsonReqPlayer = json.loads(driverRun(a.getByQuery({"name": "api"})[0]["url"] +
-                                             a.getByQuery({"name": "player"})[0]["url"] + str(id)))
+        a = db.getDb("db_main.json")
+        jsonReqPlayer = json.loads(driverRun(a.getByQuery({"name": "api"})[0]["value"] +
+                                             a.getByQuery({"name": "player"})[0]["value"] + str(id)))
         jsonNotFoundPlayer = json.loads("""{"detail":"Not found."}""")
         if jsonReqPlayer == jsonNotFoundPlayer:
             return False
@@ -45,9 +45,9 @@ def getJsonInfoOfPlayer(id=0):  # Запрос информации об игр�
 
 def getInfoAboutGuild(id=''):  # Запрос информации о гильдии
     try:
-        a = db.getDb("db_url.json")
-        jsonReqGuild = json.loads(driverRun(a.getByQuery({"name": "api"})[0]["url"] +
-                                            a.getByQuery({"name": "guild"})[0]["url"] + id))
+        a = db.getDb("db_main.json")
+        jsonReqGuild = json.loads(driverRun(a.getByQuery({"name": "api"})[0]["value"] +
+                                            a.getByQuery({"name": "guild"})[0]["value"] + id))
         return jsonReqGuild['data']['members']
     except:
         return None
@@ -81,9 +81,9 @@ def getInfoAboutAllPlayers(allyCodes=[]):
 
 def getAllUnitsFromGame():
     try:
-        a = db.getDb("db_url.json")
-        jsonReqUnits = json.loads(driverRun(a.getByQuery({"name": "api"})[0]["url"] +
-                                            a.getByQuery({"name": "characters"})[0]["url"]))
+        a = db.getDb("db_main.json")
+        jsonReqUnits = json.loads(driverRun(a.getByQuery({"name": "api"})[0]["value"] +
+                                            a.getByQuery({"name": "characters"})[0]["value"]))
         arrayUnits = []
         for unit in jsonReqUnits:
             arrayUnits.append(unit['name'])

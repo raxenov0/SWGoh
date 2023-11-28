@@ -1,0 +1,34 @@
+{
+   "data": [
+      {
+         "type": "url",
+         "name": "api",
+         "value": "https://swgoh.gg/api/",
+         "id": 349234404438527299
+      },
+      {
+         "type": "url",
+         "name": "player",
+         "value": "player/",
+         "id": 303639367270681768
+      },
+      {
+         "type": "url",
+         "name": "guild",
+         "value": "guild-profile/",
+         "id": 448386046272446856
+      },
+      {
+         "type": "url",
+         "name": "characters",
+         "value": "characters/",
+         "id": 281891342845920781
+      },
+      {
+         "type": "code",
+         "name": "code",
+         "value": "785-425-257",
+         "id": 209658293236822685
+      }
+   ]
+}

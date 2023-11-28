@@ -1230,19 +1230,25 @@ class Ui_MainWindow(QMainWindow):
         self.lineEdit_3.setPlaceholderText(_translate("MainWindow", "http://"))
 
     def setConfig(self):
-        a = db.getDb("db_url.json")
+        a = db.getDb("db_main.json")
         req = a.getByQuery({"name": "api"})
         url = ""
         if req:
-            url = req[0]["url"]
+            url = req[0]["value"]
 
         self.lineEdit_3.setText(url)
 
+        req = a.getByQuery({"type": "code"})
+        if req:
+            code = req[0]["value"]
+            self.lineEdit.setInputMask('999-999-999')
+            self.lineEdit.setText(code)
+
     def checkActions(self):
+        self.pushButton.clicked.connect(self.saveCodetoConfig)
         self.pushButton_2.clicked.connect(self.changeDirectory)
         self.pushButton_3.clicked.connect(self.updateConfig)
         self.pushButton_4.clicked.connect(self.saveUrlAPItoConfig)
-        # self.connect(self.progressBar.value==100, self.show_popup_success)
 
     def changeDirectory(self):
         dialog = QFileDialog()
@@ -1253,20 +1259,42 @@ class Ui_MainWindow(QMainWindow):
             self.lineEdit_2.setText(fname)
 
     def saveUrlAPItoConfig(self):
-        a = db.getDb("db_url.json")
+        a = db.getDb("db_main.json")
         url = self.lineEdit_3.text()
         if not url == "" and url[-1] != '/':
             url += '/'
 
         req = a.getByQuery({"name": "api"})
         if req:
-            a.updateByQuery({"name": "api"}, {"url": url})
+            a.updateByQuery({"name": "api"}, {"value": url})
         else:
+            data = a.getAll()
+            data.append({"type": "url", "name": "api", "value": url, "id": 0})
+            req2 = a.getByQuery({"name": "player"})
+            if not req2:
+                data.append({"type": "url", "name": "player", "value": "player/", "id": 0})
+            req2 = a.getByQuery({"name": "guild"})
+            if not req2:
+                data.append({"type": "url", "name": "guild", "value": "guild-profile/", "id": 0})
+            req2 = a.getByQuery({"name": "characters"})
+            if not req2:
+                data.append({"type": "url", "name": "characters", "value": "characters/", "id": 0})
             a.deleteAll()
-            a.add({"type": "url", "name": "api", "url": url})
-            a.add({"type": "url", "name": "player", "url": "player/"})
-            a.add({"type": "url", "name": "guild", "url": "guild-profile/"})
-            a.add({"type": "url", "name": "characters", "url": "characters/"})
+            a.addMany(data)
+
+    def saveCodetoConfig(self):
+        a = db.getDb("db_main.json")
+        code = self.lineEdit.text()
+
+        if code != "":
+            req = a.getByQuery({"type": "code"})
+            if req:
+                a.updateByQuery({"type": "code"}, {"value": code})
+            else:
+                data = a.getAll()
+                a.deleteAll()
+                data.append({"type": "code", "name": "code", "value": code, "id": 0})
+                a.addMany(data)
 
     @staticmethod
     def updateConfig():

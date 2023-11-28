@@ -92,12 +92,12 @@ def setupDatabaseJSON():
     import json
     from pysondb import db
 
-    with open('db_url.json') as inp:
+    with open('db_main.json') as inp:
         data = json.load(inp)
 
     if 'data' not in data:
         data['data'] = []
-        with open('db_url.json', 'w') as output:
+        with open('db_main.json', 'w') as output:
             json.dump(data, output)
 
     with open('db_config.json') as inp:
