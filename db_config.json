@@ -3,7 +3,7 @@
       {
          "data": "excel",
          "type": "extension",
-         "id": 356820808573002778
+         "id": 257405744588818762
       },
       {
          "data": [
@@ -176,13 +176,17 @@
                   {
                      "name": "Jedi Master Kenobi:ЛКенбои",
                      "type": "unit"
+                  },
+                  {
+                     "name": "Jabba the Hutt:Джабба Хатт",
+                     "type": "unit"
                   }
                ],
                "active": true
             }
          ],
          "type": "presets",
-         "id": 927210010118992462
+         "id": 326963811150590926
       },
       {
          "data": [
@@ -230,7 +234,7 @@
             }
          ],
          "type": "colors",
-         "id": 194288615347533409
+         "id": 195957388396633984
       }
    ]
 }
