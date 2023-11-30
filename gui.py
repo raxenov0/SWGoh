@@ -1212,7 +1212,7 @@ class Ui_MainWindow(QMainWindow):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "GH"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Game Helper"))
         self.pushButton.setText(_translate("MainWindow", "Пуск"))
         self.pushButton_2.setText(_translate("MainWindow", "Сохранить как..."))
         self.pushButton_3.setText(_translate("MainWindow", "Конфигурация"))

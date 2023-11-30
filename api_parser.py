@@ -250,7 +250,7 @@ def writeDataToSheet(workbook, dictOfPlayers, unitsTuple):
     col += 1
     worksheet.write(row, col, 'Nickname', cell_format_style)
     col += 1
-    worksheet.write(row, col, 'Galactic power', cell_format_style)
+    worksheet.write(row, col, 'GP', cell_format_style)
     col += 1
     a = db.getDb("db_config.json")
     doc_type = a.getByQuery({"type": "extension"})[0]["data"]
